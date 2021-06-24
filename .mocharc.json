@@ -1,0 +1,7 @@
+{
+  "recursive": true,
+  "require": ["ts-eager/register"],
+  "timeout": 5000,
+  "extension": ["ts"],
+  "spec": ["src/**/__tests__/*.spec.ts"]
+}
