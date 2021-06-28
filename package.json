@@ -25,6 +25,7 @@
   "homepage": "https://github.com/AminFazlMondo/Axios-Error-Redact#readme",
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/chai": "^4.2.19",
     "@types/mocha": "^8.2.2",
     "axios": "^0.21.1",
     "chai": "^4.3.4",
