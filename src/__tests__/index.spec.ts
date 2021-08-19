@@ -1,89 +1,122 @@
-import {AxiosErrorRedactor, redactedKeyword} from '../index'
-import axios, {AxiosError, AxiosResponse} from 'axios'
-import {expect} from 'chai'
+import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../index'
+import axios from 'axios'
+import { expect, use } from 'chai'
+import chaiExclude from 'chai-exclude'
+
+use(chaiExclude);
 
 const redactor = new AxiosErrorRedactor()
 
-function extractAxiosError(response: AxiosError | AxiosResponse | null | undefined): AxiosError {
-  if (response && 'isAxiosError' in response)
-    return response as AxiosError
+it('Should return details for invalid url request', async () => {
+  const url = 'Invalid-URL'
+  const response = await axios.get(url).catch(e => redactor.redactError(e))
 
-  throw new Error('Is not a Axios error')
-}
-
-function shouldNotContainRequestData(error: AxiosError): void {
-  expect(error.config.data).to.be.undefined
-  expect(error.request.data).to.be.undefined
-}
-
-function shouldRedactContainRequestData(error: AxiosError): void {
-  expect(error.config.data).to.be.equal(redactedKeyword)
-  expect(error.response?.config.data).to.be.equal(redactedKeyword)
-}
-
-it('Authorized with bearer token', async () => {
-  const auth = 'Bearer myToken'
-  const payload = {foo: 'bar'}
-  const response = await axios.put('Invalid-URL', payload, {
-    headers:{
-      Authorization: auth
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: '',
+    fullUrl: url,
+    path: url,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
     }
-  }).catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  shouldRedactContainRequestData(error)
-  expect(error.config.headers.Authorization).to.be.equal(redactedKeyword)
-  expect(error.request.connection._httpMessage._header).to.not.include(auth)
+  }
+  expect(response).excludingEvery('data').to.deep.equal(expectedResponse)
 })
 
+it('Should return details for invalid url request with base URL', async () => {
+  const path = 'Invalid-URL'
+  const baseURL = 'example.com'
+  const instance = axios.create({
+    baseURL
+  })
+  const response = await instance.get(path).catch(e => redactor.redactError(e))
 
-
-it('Basic Auth', async () => {
-  const username = 'stub-username'
-  const password = 'stub-password'
-  const response = await axios.get('Invalid-URL', {
-    auth: {
-      username,
-      password
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: baseURL,
+    fullUrl: `${baseURL}/${path}`,
+    path,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
     }
-  }).catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  expect(error.config.auth?.username).to.be.equal(redactedKeyword)
-  expect(error.config.auth?.password).to.be.equal(redactedKeyword)
-  expect(error.request.connection._httpMessage._header).to.not.include(username)
-  expect(error.request.connection._httpMessage._header).to.not.include(password)
+  }
+  expect(response).excludingEvery('data').to.deep.equal(expectedResponse)
 })
 
-it('No request body', async () => {
-  const response = await axios.get('Invalid-URL').catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  shouldNotContainRequestData(error)
-})
+it('Should return same Error when request preparation failed', async () => {
+  const path = 'Invalid-URL'
+  const baseURL = 'example.com'
+  const instance = axios.create({
+    baseURL
+  })
 
-it('Request body', async () => {
-  const auth = 'Bearer myToken'
-  const payload = {foo: 'bar'}
-  const response = await axios.post('Invalid-URL', payload, {
-    headers:{
-      Authorization: auth
+  const error = new Error('message')
+
+  instance.interceptors.request.use(() => {
+    throw error
+  })
+
+  const response = await instance.get(path).catch(e => redactor.redactError(e))
+
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: baseURL,
+    fullUrl: `${baseURL}/${path}`,
+    path,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
     }
-  }).catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  shouldRedactContainRequestData(error)
+  }
+  expect(response).to.be.equal(error)
 })
 
-it('Query params', async () => {
-  const response = await axios.get('Invalid-URL?secret=mySecret').catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  expect(error.config.url).to.be.equal('Invalid-URL?<REDACTED>')
-  expect(error.request.path).to.be.equal('Invalid-URL?<REDACTED>')
-  expect(error.request.res.responseUrl).to.include('Invalid-URL?<REDACTED>')
+it('Should redact details in query params of path', async () => {
+  const url = 'Invalid-URL'
+  const response = await axios.get(`${url}?secret=mySecret`).catch(e => redactor.redactError(e))
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: '',
+    fullUrl: `${url}?${redactedKeyword}`,
+    path: `${url}?${redactedKeyword}`,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
+    }
+  }
+  expect(response).excludingEvery('data').to.deep.equal(expectedResponse)
 })
 
-it('Fragment params', async () => {
-  const secret = 'stubSecret'
-  const response = await axios.get(`Invalid-URL#${secret}`).catch(e => redactor.redactError(e))
-  const error = extractAxiosError(response)
-  expect(error.config.url).to.be.equal('Invalid-URL#<REDACTED>')
-  expect(error.request.path).to.not.include(secret)
-  expect(error.request.res.responseUrl).to.not.include(secret)
+it('Should redact details in query params', async () => {
+  const url = 'Invalid-URL'
+  const response = await axios.get(url, {params: { secret: 'my-secret' }}).catch(e => redactor.redactError(e))
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: '',
+    fullUrl: `${url}?${redactedKeyword}`,
+    path: url,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
+    }
+  }
+  expect(response).excludingEvery('data').to.deep.equal(expectedResponse)
+})
+
+it('Should redact details in fragment params of path', async () => {
+  const url = 'Invalid-URL'
+  const response = await axios.get(`${url}#mySecret`).catch(e => redactor.redactError(e))
+  const expectedResponse: HttpErrorResponse = {
+    baseUrl: '',
+    fullUrl: url,
+    path: `${url}#${redactedKeyword}`,
+    message: 'Request failed with status code 400',
+    response: {
+      statusCode: 400,
+      statusMessage: 'Bad Request'
+    }
+  }
+  expect(response).excludingEvery('data').to.deep.equal(expectedResponse)
 })
