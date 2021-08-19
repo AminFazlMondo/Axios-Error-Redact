@@ -184,7 +184,6 @@ context('localhost', ()=> {
 });
 
 describe('remote', function() {
-  // this.slow(3000);
   const baseURL = 'https://reqres.in/api';
   const instance = axios.create({ baseURL });
 

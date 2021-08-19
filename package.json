@@ -50,6 +50,14 @@
     "axios": "^0.21.1"
   },
   "bundledDependencies": [],
+  "keywords": [
+    "axios",
+    "error",
+    "projen",
+    "redact",
+    "sensitive",
+    "typescript"
+  ],
   "engines": {
     "node": ">= 14"
   },
