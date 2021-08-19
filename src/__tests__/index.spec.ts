@@ -23,6 +23,7 @@ context('localhost', ()=> {
       request: {
         baseURL: '',
         path: url,
+        method: 'get',
         data: undefined
       }
     }
@@ -48,6 +49,7 @@ context('localhost', ()=> {
       request: {
         baseURL,
         path,
+        method: 'get',
         data: undefined
       }
     }
@@ -80,6 +82,7 @@ context('localhost', ()=> {
       request: {
         baseURL,
         path,
+        method: 'get',
         data: undefined
       }
     }
@@ -100,6 +103,7 @@ context('localhost', ()=> {
       request: {
         baseURL: '',
         path: `${url}?${redactedKeyword}`,
+        method: 'get',
         data: undefined
       }
     }
@@ -120,6 +124,7 @@ context('localhost', ()=> {
       request: {
         baseURL: '',
         path: url,
+        method: 'get',
         data: undefined
       }
     }
@@ -140,6 +145,7 @@ context('localhost', ()=> {
       request: {
         baseURL: '',
         path: `${url}#${redactedKeyword}`,
+        method: 'get',
         data: undefined
       }
     }
@@ -161,7 +167,33 @@ context('localhost', ()=> {
       request: {
         baseURL: '',
         path: url,
+        method: 'get',
         data: undefined
+      }
+    }
+    expect(response).to.deep.equal(expectedResponse)
+  })
+
+  it('Should redact request data', async () => {
+    const url = 'Invalid-URL'
+    const response = await axios.post(url, {foo: { bar: 'my-secret' }}).catch(e => redactor.redactError(e))
+    const expectedResponse: HttpErrorResponse = {
+      fullURL: url,
+      message: 'Request failed with status code 400',
+      response: {
+        statusCode: 400,
+        statusMessage: 'Bad Request',
+        data: redactedKeyword
+      },
+      request: {
+        baseURL: '',
+        path: url,
+        method: 'post',
+        data: {
+          foo: {
+            bar: redactedKeyword
+          }
+        }
       }
     }
     expect(response).to.deep.equal(expectedResponse)
@@ -188,6 +220,7 @@ describe('remote', function() {
       request: {
         baseURL,
         path: url,
+        method: 'get',
         data: undefined
       }
     }
@@ -211,6 +244,7 @@ describe('remote', function() {
       request: {
         baseURL,
         path: url,
+        method: 'post',
         data: {
           email: redactedKeyword
         }
@@ -237,6 +271,7 @@ describe('remote', function() {
       request: {
         baseURL,
         path: url,
+        method: 'post',
         data: {
           email: redactedKeyword
         }
@@ -264,6 +299,7 @@ describe('remote', function() {
       request: {
         baseURL,
         path: url,
+        method: 'post',
         data: payload
       }
     }
@@ -289,6 +325,7 @@ describe('remote', function() {
       request: {
         baseURL,
         path: url,
+        method: 'post',
         data: payload
       }
     }

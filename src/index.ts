@@ -55,7 +55,7 @@ export interface HttpErrorResponse {
   request: {
     baseURL: string;
     path: string;
-    // method: string;
+    method: string;
     data: any;
   };
 }
@@ -115,6 +115,7 @@ export class AxiosErrorRedactor {
       request: {
         baseURL,
         path,
+        method: error.config.method || '',
         data: redactData(error.config.data, this.redactRequestData)
       }
     }
