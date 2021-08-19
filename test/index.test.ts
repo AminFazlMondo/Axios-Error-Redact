@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { expect } from 'chai';
-import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../src/index';
+import { AxiosErrorRedactor, getErrorInterceptor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
 const redactor = new AxiosErrorRedactor();
 
-context('localhost', ()=> {
+context('Invalid URL', ()=> {
 
   it('Should return details for invalid url request', async () => {
     const url = 'http://example.com/Invalid-URL';
@@ -183,7 +183,7 @@ context('localhost', ()=> {
   });
 });
 
-describe('remote', function() {
+describe('Valid Remote URL', () => {
   const baseURL = 'https://reqres.in/api';
   const instance = axios.create({ baseURL });
 
@@ -315,3 +315,34 @@ describe('remote', function() {
   });
 });
 
+describe('Simple interceptor', () => {
+  const baseURL = 'https://reqres.in/api';
+  const instance = axios.create({ baseURL });
+  instance.interceptors.response.use(undefined, getErrorInterceptor());
+
+  it('Should return details for bad request response', async () => {
+    const url = 'register';
+    const response = await instance.post(url, { email: 'sydney@fife' }).catch(e => e);
+
+    const expectedResponse: HttpErrorResponse = {
+      fullURL: `${baseURL}/${url}`,
+      message: 'Request failed with status code 400',
+      response: {
+        statusCode: 400,
+        statusMessage: 'Bad Request',
+        data: {
+          error: redactedKeyword,
+        },
+      },
+      request: {
+        baseURL,
+        path: url,
+        method: 'post',
+        data: {
+          email: redactedKeyword,
+        },
+      },
+    };
+    expect(response).to.deep.equal(expectedResponse);
+  });
+});

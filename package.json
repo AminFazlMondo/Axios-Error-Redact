@@ -53,6 +53,7 @@
   "keywords": [
     "axios",
     "error",
+    "interceptor",
     "projen",
     "redact",
     "sensitive",

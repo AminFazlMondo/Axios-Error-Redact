@@ -115,3 +115,11 @@ export class AxiosErrorRedactor {
     };
   }
 }
+
+export function getErrorInterceptor(): ((error: AxiosError | null | undefined)=> Promise<HttpErrorResponse | null | undefined | Error>) {
+  const redactor = new AxiosErrorRedactor();
+
+  return function (error: AxiosError | null | undefined): Promise<HttpErrorResponse | null | undefined | Error> {
+    return Promise.reject(redactor.redactError(error));
+  };
+}

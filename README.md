@@ -10,7 +10,25 @@ npm i axios-error-redact
 
 ## Interceptor usage
 
-The redactor can be used in an interceptor to extract non-sensitive data from error and continue
+### Simple Interceptor
+
+The redactor can simply be used in an interceptor to extract non-sensitive data from error and continue
+
+```javascript
+import axios from 'axios'
+import {getErrorInterceptor} from 'axios-error-redact'
+
+const instance = axios.create({baseURL: 'http://example.com'})
+
+instance.interceptors.response.use(undefined, getErrorInterceptor())
+
+// instance.get()
+
+```
+
+### Custom Interceptor
+
+The redactor can be used in an interceptor to extract non-sensitive data from error and continue, with this approach the interceptor can be created with some custom logic
 
 ```javascript
 import axios from 'axios'

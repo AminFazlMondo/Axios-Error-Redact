@@ -9,6 +9,7 @@ const project = new TypeScriptProject({
     'error',
     'sensitive',
     'redact',
+    'interceptor',
     'projen',
     'typescript',
   ],
