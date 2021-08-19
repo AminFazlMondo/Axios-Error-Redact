@@ -1,4 +1,4 @@
-const { TypeScriptProject, NodePackageManager, ProjectType } = require('projen');
+const { TypeScriptProject, NodePackageManager, ProjectType, NpmAccess } = require('projen');
 
 const project = new TypeScriptProject({
   defaultReleaseBranch: 'main',
@@ -24,6 +24,8 @@ const project = new TypeScriptProject({
     '@types/babel__core',
   ],
   releaseToNpm: true,
+  npmAccess: NpmAccess.PUBLIC,
+  npmTokenSecret: 'NPM_TOKEN',
   minNodeVersion: '14',
   tsconfig: {
     compilerOptions: {
