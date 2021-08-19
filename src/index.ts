@@ -1,46 +1,43 @@
-import { AxiosError } from 'axios'
+import { AxiosError } from 'axios';
 
-export const redactedKeyword = '<REDACTED>'
+export const redactedKeyword = '<REDACTED>';
 
-const queryParamsRegex = /(?<=\?|#)\S+/ig
-const pathParamsRegex = /(\?|#)\S+/ig
+const queryParamsRegex = /(?<=\?|#)\S+/ig;
+const pathParamsRegex = /(\?|#)\S+/ig;
 
 function joinURL(base: string, path: string, queryPath = '') {
-  if (!base)
-    return `${path}${queryPath}`
+  if (!base) {return `${path}${queryPath}`;}
 
-  const joint = base.endsWith('/') || path.startsWith('/') ? '' : '/'
-  return `${base}${joint}${path}${queryPath}`
+  const joint = base.endsWith('/') || path.startsWith('/') ? '' : '/';
+  return `${base}${joint}${path}${queryPath}`;
 }
 
 function extractQueryPath(input: string | undefined): string {
-  if (!input)
-    return ''
-    
-  const match = input.match(pathParamsRegex)?.pop()
-  return match || ''
+  if (!input) {return '';}
+
+  const match = input.match(pathParamsRegex)?.pop();
+  return match || '';
 }
 
 function parseData(input: string): any {
   try {
-    return JSON.parse(input)
-  }
-  catch {
-    return
+    return JSON.parse(input);
+  } catch {
+    return;
   }
 }
 
 function redactData(data: any, flag: boolean): any {
-  if (typeof data === 'object')
-    return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]))
+  if (typeof data === 'object') {
+    return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]));
+  }
 
   if (data) {
-    const parsedData = parseData(data)
+    const parsedData = parseData(data);
 
-    if(parsedData)
-      return redactData(parsedData, flag)
-    
-    return flag ? redactedKeyword : data
+    if (parsedData) {return redactData(parsedData, flag);}
+
+    return flag ? redactedKeyword : data;
   }
 }
 
@@ -66,58 +63,55 @@ export class AxiosErrorRedactor {
   redactQueryData: boolean
 
   constructor(redactRequestData = true, redactResponseData = true, redactQueryData = true) {
-    this.redactQueryData = redactQueryData
-    this.redactRequestData = redactRequestData
-    this.redactResponseData = redactResponseData
+    this.redactQueryData = redactQueryData;
+    this.redactRequestData = redactRequestData;
+    this.redactResponseData = redactResponseData;
   }
 
   skipRequestData(): AxiosErrorRedactor {
-    this.redactRequestData = false
-    return this
+    this.redactRequestData = false;
+    return this;
   }
 
   skipResponseData(): AxiosErrorRedactor {
-    this.redactResponseData = false
-    return this
+    this.redactResponseData = false;
+    return this;
   }
 
   skipQueryData(): AxiosErrorRedactor {
-    this.redactQueryData = false
-    return this
+    this.redactQueryData = false;
+    return this;
   }
 
   private redactUrlQueryParams(url: string | undefined): string {
-    if (!url)
-      return ''
+    if (!url) {return '';}
 
-    return this.redactQueryData ? url.replace(queryParamsRegex, redactedKeyword) : url
+    return this.redactQueryData ? url.replace(queryParamsRegex, redactedKeyword) : url;
   }
 
-  
 
   redactError(error: AxiosError | null | undefined): (HttpErrorResponse | null | undefined | Error) {
-    if (!error || !error.isAxiosError)
-      return error
+    if (!error || !error.isAxiosError) {return error;}
 
-    const baseURL = this.redactUrlQueryParams(error.config.baseURL)
-    const path = this.redactUrlQueryParams(error.config.url)
-    const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path)
-    const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath))
+    const baseURL = this.redactUrlQueryParams(error.config.baseURL);
+    const path = this.redactUrlQueryParams(error.config.url);
+    const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path);
+    const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath));
 
     return {
       fullURL,
       message: error.message,
-      response:{
+      response: {
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText || '',
-        data: redactData(error.response?.data, this.redactResponseData)
+        data: redactData(error.response?.data, this.redactResponseData),
       },
       request: {
         baseURL,
         path,
         method: error.config.method || '',
-        data: redactData(error.config.data, this.redactRequestData)
-      }
-    }
+        data: redactData(error.config.data, this.redactRequestData),
+      },
+    };
   }
 }
