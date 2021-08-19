@@ -3,17 +3,61 @@ import { AxiosError } from 'axios'
 export const redactedKeyword = '<REDACTED>'
 
 const queryParamsRegex = /(?<=\?|#)\S+/ig
+const pathParamsRegex = /(\?|#)\S+/ig
+
+function joinURL(base: string, path: string, queryPath = '') {
+  if (!base)
+    return `${path}${queryPath}`
+
+  const joint = base.endsWith('/') || path.startsWith('/') ? '' : '/'
+  return `${base}${joint}${path}${queryPath}`
+}
+
+function extractQueryPath(input: string | undefined): string {
+  if (!input)
+    return ''
+    
+  const match = input.match(pathParamsRegex)?.pop()
+  return match || ''
+}
+
+function parseData(input: string): any {
+  try {
+    return JSON.parse(input)
+  }
+  catch {
+    return
+  }
+}
+
+function redactData(data: any, flag: boolean): any {
+  if (typeof data === 'object')
+    return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]))
+
+  if (data) {
+    const parsedData = parseData(data)
+
+    if(parsedData)
+      return redactData(parsedData, flag)
+    
+    return flag ? redactedKeyword : data
+  }
+}
 
 export interface HttpErrorResponse {
   message: string;
+  fullURL: string;
   response: {
     statusCode?: number;
     statusMessage: string;
-    data?: any;
+    data: any;
   };
-  baseUrl: string;
-  fullUrl: string;
-  path: string;
+  request: {
+    baseURL: string;
+    path: string;
+    // method: string;
+    data: any;
+  };
 }
 
 export class AxiosErrorRedactor {
@@ -49,19 +93,29 @@ export class AxiosErrorRedactor {
     return this.redactQueryData ? url.replace(queryParamsRegex, redactedKeyword) : url
   }
 
+  
+
   redactError(error: AxiosError | null | undefined): (HttpErrorResponse | null | undefined | Error) {
     if (!error || !error.isAxiosError)
       return error
 
+    const baseURL = this.redactUrlQueryParams(error.config.baseURL)
+    const path = this.redactUrlQueryParams(error.config.url)
+    const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path)
+    const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath))
+
     return {
-      baseUrl: this.redactUrlQueryParams(error.config.baseURL),
-      fullUrl: this.redactUrlQueryParams(error.request?.path),
-      path: this.redactUrlQueryParams(error.config.url),
+      fullURL,
       message: error.message,
       response:{
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText || '',
-        data: error.response?.data
+        data: redactData(error.response?.data, this.redactResponseData)
+      },
+      request: {
+        baseURL,
+        path,
+        data: redactData(error.config.data, this.redactRequestData)
       }
     }
   }
