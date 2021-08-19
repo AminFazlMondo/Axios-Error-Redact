@@ -2,6 +2,7 @@
   "recursive": true,
   "require": ["ts-eager/register"],
   "timeout": 5000,
+  "slow": 3000,
   "extension": ["ts"],
   "spec": ["test/*.test.ts"]
 }

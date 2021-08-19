@@ -5,16 +5,17 @@ import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../src/i
 const redactor = new AxiosErrorRedactor();
 
 context('localhost', ()=> {
+
   it('Should return details for invalid url request', async () => {
-    const url = 'Invalid-URL';
+    const url = 'http://example.com/Invalid-URL';
     const response = await axios.get(url).catch(e => redactor.redactError(e));
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -29,7 +30,7 @@ context('localhost', ()=> {
 
   it('Should return details for invalid url request with base URL', async () => {
     const path = 'Invalid-URL';
-    const baseURL = 'example.com';
+    const baseURL = 'http://example.com';
     const instance = axios.create({
       baseURL,
     });
@@ -37,10 +38,10 @@ context('localhost', ()=> {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${path}`,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -55,7 +56,7 @@ context('localhost', ()=> {
 
   it('Should return same Error when request preparation failed', async () => {
     const path = 'Invalid-URL';
-    const baseURL = 'example.com';
+    const baseURL = 'http://example.com';
     const instance = axios.create({
       baseURL,
     });
@@ -68,33 +69,18 @@ context('localhost', ()=> {
 
     const response = await instance.get(path).catch(e => redactor.redactError(e));
 
-    const expectedResponse: HttpErrorResponse = {
-      fullURL: `${baseURL}/${path}`,
-      message: 'Request failed with status code 400',
-      response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
-        data: redactedKeyword,
-      },
-      request: {
-        baseURL,
-        path,
-        method: 'get',
-        data: undefined,
-      },
-    };
     expect(response).to.be.equal(error);
   });
 
   it('Should redact details in query params of path', async () => {
-    const url = 'Invalid-URL';
+    const url = 'http://example.com/Invalid-URL';
     const response = await axios.get(`${url}?secret=mySecret`).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -108,14 +94,14 @@ context('localhost', ()=> {
   });
 
   it('Should redact details in query params', async () => {
-    const url = 'Invalid-URL';
+    const url = 'http://example.com/Invalid-URL';
     const response = await axios.get(url, { params: { secret: 'my-secret' } }).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -129,14 +115,14 @@ context('localhost', ()=> {
   });
 
   it('Should redact details in fragment params of path', async () => {
-    const url = 'Invalid-URL';
+    const url = 'http://example.com/Invalid-URL';
     const response = await axios.get(`${url}#mySecret`).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}#${redactedKeyword}`,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -150,15 +136,15 @@ context('localhost', ()=> {
   });
 
   it('Should skip redact details in query params if configured', async () => {
-    const url = 'Invalid-URL?secret=mySecret';
+    const url = 'http://example.com/Invalid-URL?secret=mySecret';
     const redactor2 = new AxiosErrorRedactor().skipQueryData();
     const response = await axios.get(url).catch(e => redactor2.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -172,14 +158,14 @@ context('localhost', ()=> {
   });
 
   it('Should redact request data', async () => {
-    const url = 'Invalid-URL';
+    const url = 'http://example.com/Invalid-URL';
     const response = await axios.post(url, { foo: { bar: 'my-secret' } }).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
-      message: 'Request failed with status code 400',
+      message: 'Request failed with status code 404',
       response: {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
+        statusCode: 404,
+        statusMessage: 'Not Found',
         data: redactedKeyword,
       },
       request: {
@@ -198,7 +184,7 @@ context('localhost', ()=> {
 });
 
 describe('remote', function() {
-  this.slow(3000);
+  // this.slow(3000);
   const baseURL = 'https://reqres.in/api';
   const instance = axios.create({ baseURL });
 
