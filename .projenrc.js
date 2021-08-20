@@ -42,6 +42,9 @@ const project = new TypeScriptProject({
       target: 'ES2019',
       lib: ['ES2019'],
     },
+    exclude: [
+      '.mocharc.json',
+    ],
   },
 });
 
