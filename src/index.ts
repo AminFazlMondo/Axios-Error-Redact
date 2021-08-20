@@ -28,6 +28,10 @@ function parseData(input: string): any {
 }
 
 function redactData(data: any, flag: boolean): any {
+  if (!data) {
+    return data;
+  };
+
   if (typeof data === 'object') {
     return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]));
   }
