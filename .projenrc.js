@@ -46,6 +46,9 @@ const project = new TypeScriptProject({
       '.mocharc.json',
     ],
   },
+  autoMergeOptions: {
+    buildJob: 'build',
+  },
 });
 
 project.tasks.tryFind('test').exec('mocha');
