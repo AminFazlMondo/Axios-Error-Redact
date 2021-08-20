@@ -36,13 +36,13 @@ function redactData(data: any, flag: boolean): any {
     return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]));
   }
 
-  if (data) {
-    const parsedData = parseData(data);
+  const parsedData = parseData(data);
 
-    if (parsedData) {return redactData(parsedData, flag);}
-
-    return flag ? redactedKeyword : data;
+  if (parsedData) {
+    return redactData(parsedData, flag);
   }
+
+  return flag ? redactedKeyword : data;
 }
 
 export interface HttpErrorResponse {
