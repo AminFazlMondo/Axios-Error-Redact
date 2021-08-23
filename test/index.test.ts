@@ -207,6 +207,34 @@ context('Invalid URL', ()=> {
     };
     expect(response).to.deep.equal(expectedResponse);
   });
+
+  it('Should redact request data, array of values', async () => {
+    const url = 'http://example.com/Invalid-URL';
+    const response = await axios.post(url, [{ foo: 'foo' }, { bar: 1 }]).catch(e => redactor.redactError(e));
+    const expectedResponse: HttpErrorResponse = {
+      fullURL: url,
+      message: 'Request failed with status code 404',
+      response: {
+        statusCode: 404,
+        statusMessage: 'Not Found',
+        data: redactedKeyword,
+      },
+      request: {
+        baseURL: '',
+        path: url,
+        method: 'post',
+        data: [
+          {
+            foo: redactedKeyword,
+          },
+          {
+            bar: redactedKeyword,
+          },
+        ],
+      },
+    };
+    expect(response).to.deep.equal(expectedResponse);
+  });
 });
 
 describe('Valid Remote URL', () => {
