@@ -33,12 +33,16 @@ function redactData(data: any, flag: boolean): any {
   };
 
   if (typeof data === 'object') {
+    if (Array.isArray(data)) {
+      return data.map(value => redactData(value, flag));
+    }
+
     return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]));
   }
 
   const parsedData = parseData(data);
 
-  if (parsedData) {
+  if (parsedData && typeof parsedData === 'object') {
     return redactData(parsedData, flag);
   }
 
