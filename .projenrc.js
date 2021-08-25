@@ -49,6 +49,7 @@ const project = new TypeScriptProject({
   autoMergeOptions: {
     buildJob: 'build',
   },
+  docgen: true,
 });
 
 project.tasks.tryFind('test').exec('mocha');
