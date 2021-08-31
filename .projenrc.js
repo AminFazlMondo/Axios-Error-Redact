@@ -1,4 +1,4 @@
-const { TypeScriptProject, NodePackageManager, ProjectType, NpmAccess } = require('projen');
+const {TypeScriptProject, NodePackageManager, ProjectType, NpmAccess} = require('projen')
 
 const project = new TypeScriptProject({
   defaultReleaseBranch: 'main',
@@ -50,7 +50,23 @@ const project = new TypeScriptProject({
     buildJob: 'build',
   },
   docgen: true,
-});
+})
 
-project.tasks.tryFind('test').exec('mocha');
-project.synth();
+const additionalRules = {
+  'curly': [
+    'error',
+    'multi',
+    'consistent',
+  ],
+  'semi': [
+    'error',
+    'never',
+  ],
+  'object-curly-spacing': 'error',
+  'nonblock-statement-body-position': ['error', 'below'],
+}
+
+project.eslint.addRules(additionalRules)
+
+project.tasks.tryFind('test').exec('mocha')
+project.synth()
