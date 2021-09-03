@@ -34,6 +34,7 @@ yarn-error.log*
 !/.github/workflows/stale.yml
 !/.github/workflows/upgrade.yml
 !/.mergify.yml
+!/.mocharc.json
 !/.npmignore
 !/.projen/deps.json
 !/.projen/tasks.json

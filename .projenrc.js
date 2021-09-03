@@ -1,4 +1,4 @@
-const {TypeScriptProject, NodePackageManager, ProjectType, NpmAccess} = require('projen')
+const {TypeScriptProject, NodePackageManager, ProjectType, NpmAccess, JsonFile} = require('projen')
 
 const project = new TypeScriptProject({
   defaultReleaseBranch: 'main',
@@ -67,6 +67,18 @@ const additionalRules = {
 }
 
 project.eslint.addRules(additionalRules)
+
+const mochaConfig = new JsonFile(project, '.mocharc.json', {
+  obj: {
+    recursive: true,
+    require: ['ts-eager/register'],
+    timeout: 8000,
+    slow: 3000,
+    extension: ['ts'],
+    spec: ['test/*.test.ts'],
+  },
+})
+project.files.push(mochaConfig)
 
 project.tasks.tryFind('test').exec('mocha')
 project.synth()
