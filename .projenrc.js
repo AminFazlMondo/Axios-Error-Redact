@@ -16,14 +16,12 @@ const project = new TypeScriptProject({
   majorVersion: 0,
   packageName: 'axios-error-redact',
   packageManager: NodePackageManager.NPM,
-  projectType: ProjectType.LIB,
   repository: 'https://github.com/AminFazlMondo/Axios-Error-Redact.git',
   authorEmail: 'amin.fazl@mondo.com.au',
   authorName: 'Amin Fazl',
   jest: false,
   deps: [
     'axios',
-    '@types/axios',
   ],
   devDeps: [
     'chai',
@@ -41,6 +39,7 @@ const project = new TypeScriptProject({
     compilerOptions: {
       target: 'ES2019',
       lib: ['ES2019'],
+      skipLibCheck: true,
     },
   },
   autoMergeOptions: {

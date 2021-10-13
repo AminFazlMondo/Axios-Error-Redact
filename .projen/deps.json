@@ -81,10 +81,6 @@
       "type": "build"
     },
     {
-      "name": "@types/axios",
-      "type": "runtime"
-    },
-    {
       "name": "axios",
       "type": "runtime"
     }
