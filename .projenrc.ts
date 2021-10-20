@@ -1,6 +1,7 @@
-const {TypeScriptProject, NodePackageManager, ProjectType, NpmAccess, JsonFile} = require('projen')
+import {TypeScriptProject, NodePackageManager, NpmAccess, JsonFile} from 'projen'
 
 const project = new TypeScriptProject({
+  projenrcTs: true,
   defaultReleaseBranch: 'main',
   name: 'axios-error-redact',
   description: 'Library to redact sensitive information from Axios errors',
@@ -50,6 +51,9 @@ const project = new TypeScriptProject({
     '.mocharc.json',
     'docs',
   ],
+  depsUpgradeOptions: {
+    ignoreProjen: false,
+  },
 })
 
 const additionalRules = {
@@ -66,9 +70,9 @@ const additionalRules = {
   'nonblock-statement-body-position': ['error', 'below'],
 }
 
-project.eslint.addRules(additionalRules)
+project.eslint?.addRules(additionalRules)
 
-const mochaConfig = new JsonFile(project, '.mocharc.json', {
+new JsonFile(project, '.mocharc.json', {
   obj: {
     recursive: true,
     require: ['ts-eager/register'],
@@ -78,7 +82,6 @@ const mochaConfig = new JsonFile(project, '.mocharc.json', {
     spec: ['test/*.test.ts'],
   },
 })
-project.files.push(mochaConfig)
 
-project.tasks.tryFind('test').exec('mocha')
+project.tasks.tryFind('test')?.exec('mocha')
 project.synth()
