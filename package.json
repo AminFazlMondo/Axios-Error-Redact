@@ -43,7 +43,7 @@
     "json-schema": "^0.3.0",
     "mocha": "^9.1.3",
     "npm-check-updates": "^11",
-    "projen": "^0.31.11",
+    "projen": "^0.31.12",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^9",
@@ -51,7 +51,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "axios": "^0.23.0"
+    "axios": "^0.24.0"
   },
   "bundledDependencies": [],
   "keywords": [
