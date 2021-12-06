@@ -1,6 +1,6 @@
-import {TypeScriptProject, NodePackageManager, NpmAccess, JsonFile} from 'projen'
+import {JsonFile, typescript, javascript} from 'projen'
 
-const project = new TypeScriptProject({
+const project = new typescript.TypeScriptProject({
   projenrcTs: true,
   defaultReleaseBranch: 'main',
   name: 'axios-error-redact',
@@ -16,7 +16,7 @@ const project = new TypeScriptProject({
   ],
   majorVersion: 0,
   packageName: 'axios-error-redact',
-  packageManager: NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.NPM,
   repository: 'https://github.com/AminFazlMondo/Axios-Error-Redact.git',
   authorEmail: 'amin.fazl@mondo.com.au',
   authorName: 'Amin Fazl',
@@ -33,7 +33,7 @@ const project = new TypeScriptProject({
     '@types/babel__core',
   ],
   releaseToNpm: true,
-  npmAccess: NpmAccess.PUBLIC,
+  npmAccess: javascript.NpmAccess.PUBLIC,
   npmTokenSecret: 'NPM_TOKEN',
   minNodeVersion: '14',
   tsconfig: {
