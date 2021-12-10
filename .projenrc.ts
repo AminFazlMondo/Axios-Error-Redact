@@ -54,6 +54,7 @@ const project = new typescript.TypeScriptProject({
   depsUpgradeOptions: {
     ignoreProjen: false,
   },
+  publishTasks: true,
 })
 
 const additionalRules = {
