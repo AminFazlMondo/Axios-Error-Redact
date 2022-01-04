@@ -116,10 +116,7 @@
           "exec": "mkdir -p dist/js"
         },
         {
-          "exec": "npm pack"
-        },
-        {
-          "exec": "mv *.tgz dist/js/"
+          "exec": "mv $(npm pack) dist/js/"
         }
       ]
     },

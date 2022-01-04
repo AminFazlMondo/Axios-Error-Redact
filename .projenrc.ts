@@ -43,9 +43,6 @@ const project = new typescript.TypeScriptProject({
       skipLibCheck: true,
     },
   },
-  autoMergeOptions: {
-    buildJob: 'build',
-  },
   docgen: true,
   npmignore: [
     '.mocharc.json',
