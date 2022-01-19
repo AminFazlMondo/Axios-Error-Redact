@@ -46,7 +46,7 @@
     "json-schema": "^0.4.0",
     "mocha": "^9.1.4",
     "npm-check-updates": "^12",
-    "projen": "^0.50.34",
+    "projen": "^0.51.4",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^9",
@@ -54,7 +54,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.25.0"
   },
   "keywords": [
     "axios",
