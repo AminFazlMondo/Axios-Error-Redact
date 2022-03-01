@@ -52,6 +52,10 @@ const project = new typescript.TypeScriptProject({
     ignoreProjen: false,
   },
   publishTasks: true,
+  autoApproveOptions: {
+    allowedUsernames: ['AminFazlMondo'],
+  },
+  autoApproveUpgrades: true,
 })
 
 const additionalRules = {
