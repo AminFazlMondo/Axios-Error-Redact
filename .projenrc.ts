@@ -48,9 +48,6 @@ const project = new typescript.TypeScriptProject({
     '.mocharc.json',
     'docs',
   ],
-  depsUpgradeOptions: {
-    ignoreProjen: false,
-  },
   publishTasks: true,
   autoApproveOptions: {
     allowedUsernames: ['AminFazlMondo'],
