@@ -1,241 +1,74 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>axios-error-redact</title>
-	<meta name="description" content="Documentation for axios-error-redact">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">axios-error-redact</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>axios-error-redact</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#axios-error-redact" id="axios-error-redact" style="color: inherit; text-decoration: none;">
-					<h1>Axios-Error-Redact</h1>
-				</a>
-				<p>Library to redact sensitive information from Axios errors.
-				This can be used as an response interceptor for axios instances, or can be used standalone.</p>
-				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
-					<h1>Getting started</h1>
-				</a>
-				<pre><code class="language-console">npm i axios-error-redact
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>axios-error-redact</title><meta name="description" content="Documentation for axios-error-redact"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">axios-error-redact</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>axios-error-redact </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#axios-error-redact" id="axios-error-redact" style="color: inherit; text-decoration: none;">
+  <h1>Axios-Error-Redact</h1>
+</a>
+<p>Library to redact sensitive information from Axios errors.
+This can be used as an response interceptor for axios instances, or can be used standalone.</p>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h1>Getting started</h1>
+</a>
+<pre><code class="language-console">npm i axios-error-redact
 </code></pre>
-				<a href="#interceptor-usage" id="interceptor-usage" style="color: inherit; text-decoration: none;">
-					<h2>Interceptor usage</h2>
-				</a>
-				<a href="#simple-interceptor" id="simple-interceptor" style="color: inherit; text-decoration: none;">
-					<h3>Simple Interceptor</h3>
-				</a>
-				<p>The redactor can simply be used in an interceptor to extract non-sensitive data from error and continue</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">axios</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios&#039;</span>
-<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">getErrorInterceptor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">instance</span><span style="color: #000000"> = </span><span style="color: #001080">axios</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">({</span><span style="color: #001080">baseURL:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;http://example.com&#039;</span><span style="color: #000000">})</span>
+<a href="#interceptor-usage" id="interceptor-usage" style="color: inherit; text-decoration: none;">
+  <h2>Interceptor usage</h2>
+</a>
 
-<span style="color: #001080">instance</span><span style="color: #000000">.</span><span style="color: #001080">interceptors</span><span style="color: #000000">.</span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">use</span><span style="color: #000000">(</span><span style="color: #0000FF">undefined</span><span style="color: #000000">, </span><span style="color: #795E26">getErrorInterceptor</span><span style="color: #000000">())</span>
-
-<span style="color: #008000">// instance.get()</span>
-
+<a href="#simple-interceptor" id="simple-interceptor" style="color: inherit; text-decoration: none;">
+  <h3>Simple Interceptor</h3>
+</a>
+<p>The redactor can simply be used in an interceptor to extract non-sensitive data from error and continue</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">axios</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios&#39;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">getErrorInterceptor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">instance</span><span class="hl-1"> = </span><span class="hl-2">axios</span><span class="hl-1">.</span><span class="hl-6">create</span><span class="hl-1">({</span><span class="hl-2">baseURL:</span><span class="hl-1"> </span><span class="hl-3">&#39;http://example.com&#39;</span><span class="hl-1">})</span><br/><br/><span class="hl-2">instance</span><span class="hl-1">.</span><span class="hl-2">interceptors</span><span class="hl-1">.</span><span class="hl-2">response</span><span class="hl-1">.</span><span class="hl-6">use</span><span class="hl-1">(</span><span class="hl-4">undefined</span><span class="hl-1">, </span><span class="hl-6">getErrorInterceptor</span><span class="hl-1">())</span><br/><br/><span class="hl-7">// instance.get()</span><br/>
 </code></pre>
-				<a href="#custom-interceptor" id="custom-interceptor" style="color: inherit; text-decoration: none;">
-					<h3>Custom Interceptor</h3>
-				</a>
-				<p>The redactor can be used in an interceptor to extract non-sensitive data from error and continue, with this approach the interceptor can be created with some custom logic</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">axios</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios&#039;</span>
-<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">instance</span><span style="color: #000000"> = </span><span style="color: #001080">axios</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">({</span><span style="color: #001080">baseURL:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;http://example.com&#039;</span><span style="color: #000000">})</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">()</span>
-
-<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">errorInterceptor</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">): </span><span style="color: #267F99">any</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactedError</span><span style="color: #000000"> = </span><span style="color: #001080">redactor</span><span style="color: #000000">.</span><span style="color: #795E26">redactError</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">)</span>
-<span style="color: #000000">  </span><span style="color: #008000">// You may want to add more logic here; for example logging</span>
-<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">.</span><span style="color: #795E26">reject</span><span style="color: #000000">(</span><span style="color: #001080">redactedError</span><span style="color: #000000">)</span>
-<span style="color: #000000">}</span>
-
-<span style="color: #001080">instance</span><span style="color: #000000">.</span><span style="color: #001080">interceptors</span><span style="color: #000000">.</span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">use</span><span style="color: #000000">(</span><span style="color: #0000FF">undefined</span><span style="color: #000000">, </span><span style="color: #001080">errorInterceptor</span><span style="color: #000000">)</span>
-
-<span style="color: #008000">// instance.get()</span>
-
+<a href="#custom-interceptor" id="custom-interceptor" style="color: inherit; text-decoration: none;">
+  <h3>Custom Interceptor</h3>
+</a>
+<p>The redactor can be used in an interceptor to extract non-sensitive data from error and continue, with this approach the interceptor can be created with some custom logic</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">axios</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios&#39;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">instance</span><span class="hl-1"> = </span><span class="hl-2">axios</span><span class="hl-1">.</span><span class="hl-6">create</span><span class="hl-1">({</span><span class="hl-2">baseURL:</span><span class="hl-1"> </span><span class="hl-3">&#39;http://example.com&#39;</span><span class="hl-1">})</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">()</span><br/><br/><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-6">errorInterceptor</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">: </span><span class="hl-8">any</span><span class="hl-1">): </span><span class="hl-8">any</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactedError</span><span class="hl-1"> = </span><span class="hl-2">redactor</span><span class="hl-1">.</span><span class="hl-6">redactError</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">)</span><br/><span class="hl-1">  </span><span class="hl-7">// You may want to add more logic here; for example logging</span><br/><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-8">Promise</span><span class="hl-1">.</span><span class="hl-6">reject</span><span class="hl-1">(</span><span class="hl-2">redactedError</span><span class="hl-1">)</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-2">instance</span><span class="hl-1">.</span><span class="hl-2">interceptors</span><span class="hl-1">.</span><span class="hl-2">response</span><span class="hl-1">.</span><span class="hl-6">use</span><span class="hl-1">(</span><span class="hl-4">undefined</span><span class="hl-1">, </span><span class="hl-2">errorInterceptor</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// instance.get()</span><br/>
 </code></pre>
-				<a href="#standalone-usage" id="standalone-usage" style="color: inherit; text-decoration: none;">
-					<h2>Standalone usage</h2>
-				</a>
-				<p>The library can be used on its own without using any interceptor as well.</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">axios</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios&#039;</span>
-<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">()</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">result</span><span style="color: #000000"> = </span><span style="color: #001080">axios</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;http://example.com&#039;</span><span style="color: #000000">)</span>
-<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">redactor</span><span style="color: #000000">.</span><span style="color: #795E26">redactError</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">))</span>
-
+<a href="#standalone-usage" id="standalone-usage" style="color: inherit; text-decoration: none;">
+  <h2>Standalone usage</h2>
+</a>
+<p>The library can be used on its own without using any interceptor as well.</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">axios</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios&#39;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">()</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">result</span><span class="hl-1"> = </span><span class="hl-2">axios</span><span class="hl-1">.</span><span class="hl-6">get</span><span class="hl-1">(</span><span class="hl-3">&#39;http://example.com&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-6">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">redactor</span><span class="hl-1">.</span><span class="hl-6">redactError</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">))</span><br/>
 </code></pre>
-				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
-					<h2>API</h2>
-				</a>
-				<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
-					<h3>Constructor</h3>
-				</a>
-				<p>The redactor object can be initiated with some defaults; in which all of the sensitive data will be redacted (request, response, query)</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">()</span>
+<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+  <h2>API</h2>
+</a>
 
+<a href="#constructor" id="constructor" style="color: inherit; text-decoration: none;">
+  <h3>Constructor</h3>
+</a>
+<p>The redactor object can be initiated with some defaults; in which all of the sensitive data will be redacted (request, response, query)</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">()</span><br/>
 </code></pre>
-				<p>The constructor also accepts boolean values to enable or disable these</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">(</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">//redactRequestData</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">//redactResponseData</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">//redactQueryData</span>
-<span style="color: #000000">  )</span>
-
+<p>The constructor also accepts boolean values to enable or disable these</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-4">false</span><span class="hl-1">, </span><span class="hl-7">//redactRequestData</span><br/><span class="hl-1">  </span><span class="hl-4">false</span><span class="hl-1">, </span><span class="hl-7">//redactResponseData</span><br/><span class="hl-1">  </span><span class="hl-4">false</span><span class="hl-1">, </span><span class="hl-7">//redactQueryData</span><br/><span class="hl-1">  )</span><br/>
 </code></pre>
-				<a href="#main-function" id="main-function" style="color: inherit; text-decoration: none;">
-					<h3>Main Function</h3>
-				</a>
-				<p>The main function that can be called on the initiated object is <code>redactError</code> which accepts the error as the input and returns the redacted information in and object of type <code>HttpErrorResponse</code></p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">axios</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios&#039;</span>
-<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">()</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">result</span><span style="color: #000000"> = </span><span style="color: #001080">axios</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;http://example.com&#039;</span><span style="color: #000000">)</span>
-<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">redactor</span><span style="color: #000000">.</span><span style="color: #795E26">redactError</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">))</span>
-
+<a href="#main-function" id="main-function" style="color: inherit; text-decoration: none;">
+  <h3>Main Function</h3>
+</a>
+<p>The main function that can be called on the initiated object is <code>redactError</code> which accepts the error as the input and returns the redacted information in and object of type <code>HttpErrorResponse</code></p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">axios</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios&#39;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">()</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">result</span><span class="hl-1"> = </span><span class="hl-2">axios</span><span class="hl-1">.</span><span class="hl-6">get</span><span class="hl-1">(</span><span class="hl-3">&#39;http://example.com&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-6">catch</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">redactor</span><span class="hl-1">.</span><span class="hl-6">redactError</span><span class="hl-1">(</span><span class="hl-2">error</span><span class="hl-1">))</span><br/>
 </code></pre>
-				<a href="#changing-flags" id="changing-flags" style="color: inherit; text-decoration: none;">
-					<h3>Changing Flags</h3>
-				</a>
-				<p>There are three functions that can be used and chained after the initiated object in order to change what sort of data should be skipped to be redacted.</p>
-				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">AxiosErrorRedactor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;axios-error-redact&#039;</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">redactor</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AxiosErrorRedactor</span><span style="color: #000000">().</span><span style="color: #795E26">skipRequestData</span><span style="color: #000000">().</span><span style="color: #795E26">skipQueryData</span><span style="color: #000000">()</span>
+<a href="#changing-flags" id="changing-flags" style="color: inherit; text-decoration: none;">
+  <h3>Changing Flags</h3>
+</a>
+<p>There are three functions that can be used and chained after the initiated object in order to change what sort of data should be skipped to be redacted.</p>
+<pre><code class="language-javascript"><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">AxiosErrorRedactor</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;axios-error-redact&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">redactor</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">AxiosErrorRedactor</span><span class="hl-1">().</span><span class="hl-6">skipRequestData</span><span class="hl-1">().</span><span class="hl-6">skipQueryData</span><span class="hl-1">()</span><br/>
+</code></pre>
 
+<a href="#response" id="response" style="color: inherit; text-decoration: none;">
+  <h3>Response</h3>
+</a>
+<p>The redact library will extract information from axios error and return an object with following details.</p>
+<pre><code class="language-javascript"><span class="hl-2">HttpErrorResponse</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-9">message</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-9">fullURL</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-9">response</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-2">statusCode</span><span class="hl-1">?: </span><span class="hl-2">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-9">statusMessage</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-9">data</span><span class="hl-1">: </span><span class="hl-2">any</span><span class="hl-1">;</span><br/><span class="hl-1">  };</span><br/><span class="hl-1">  </span><span class="hl-9">request</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-9">baseURL</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-9">path</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-9">method</span><span class="hl-1">: </span><span class="hl-2">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-9">data</span><span class="hl-1">: </span><span class="hl-2">any</span><span class="hl-1">;</span><br/><span class="hl-1">  };</span><br/><span class="hl-1">}</span>
 </code></pre>
-				<a href="#response" id="response" style="color: inherit; text-decoration: none;">
-					<h3>Response</h3>
-				</a>
-				<p>The redact library will extract information from axios error and return an object with following details.</p>
-				<pre><code class="language-javascript"><span style="color: #001080">HttpErrorResponse</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  message: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">  fullURL: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">  response: {</span>
-<span style="color: #000000">    </span><span style="color: #001080">statusCode</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">;</span>
-<span style="color: #000000">    statusMessage: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">    data: </span><span style="color: #001080">any</span><span style="color: #000000">;</span>
-<span style="color: #000000">  };</span>
-<span style="color: #000000">  request: {</span>
-<span style="color: #000000">    baseURL: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">    path: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">    method: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
-<span style="color: #000000">    data: </span><span style="color: #001080">any</span><span style="color: #000000">;</span>
-<span style="color: #000000">  };</span>
-<span style="color: #000000">}</span>
-</code></pre>
-				<p>If the error is not an axios error, then the same error will be returned.</p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="classes/AxiosErrorRedactor.html" class="tsd-kind-icon">Axios<wbr>Error<wbr>Redactor</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/HttpErrorResponse.html" class="tsd-kind-icon">Http<wbr>Error<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="modules.html#redactedKeyword" class="tsd-kind-icon">redacted<wbr>Keyword</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#getErrorInterceptor" class="tsd-kind-icon">get<wbr>Error<wbr>Interceptor</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<p>If the error is not an axios error, then the same error will be returned.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AxiosErrorRedactor.html" class="tsd-kind-icon">Axios<wbr/>Error<wbr/>Redactor</a></li><li class="tsd-kind-interface"><a href="interfaces/HttpErrorResponse.html" class="tsd-kind-icon">Http<wbr/>Error<wbr/>Response</a></li><li class="tsd-kind-variable"><a href="modules.html#redactedKeyword" class="tsd-kind-icon">redacted<wbr/>Keyword</a></li><li class="tsd-kind-function"><a href="modules.html#getErrorInterceptor" class="tsd-kind-icon">get<wbr/>Error<wbr/>Interceptor</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
