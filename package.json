@@ -47,7 +47,7 @@
     "json-schema": "^0.4.0",
     "mocha": "^9.2.2",
     "npm-check-updates": "^15",
-    "projen": "^0.61.34",
+    "projen": "^0.61.36",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.1",
