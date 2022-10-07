@@ -105,8 +105,8 @@ export class AxiosErrorRedactor {
     if (!error || !error.isAxiosError)
       return error
 
-    const baseURL = this.redactUrlQueryParams(error.config.baseURL)
-    const path = this.redactUrlQueryParams(error.config.url)
+    const baseURL = this.redactUrlQueryParams(error.config?.baseURL)
+    const path = this.redactUrlQueryParams(error.config?.url)
     const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path)
     const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath))
 
@@ -121,8 +121,8 @@ export class AxiosErrorRedactor {
       request: {
         baseURL,
         path,
-        method: error.config.method || '',
-        data: redactData(error.config.data, this.redactRequestData),
+        method: error.config?.method || '',
+        data: redactData(error.config?.data, this.redactRequestData),
       },
     }
   }
