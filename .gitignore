@@ -47,3 +47,4 @@ jspm_packages/
 /dist/
 !/.eslintrc.json
 !/.mocharc.json
+!/.nvmrc

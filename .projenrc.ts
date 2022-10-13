@@ -1,4 +1,6 @@
-import {JsonFile, typescript, javascript} from 'projen'
+import {JsonFile, typescript, javascript, TextFile} from 'projen'
+
+const nodeVersion = '16'
 
 const project = new typescript.TypeScriptProject({
   projenrcTs: true,
@@ -53,6 +55,7 @@ const project = new typescript.TypeScriptProject({
     allowedUsernames: ['AminFazlMondo'],
   },
   autoApproveUpgrades: true,
+  workflowNodeVersion: nodeVersion,
 })
 
 const additionalRules = {
@@ -80,6 +83,10 @@ new JsonFile(project, '.mocharc.json', {
     extension: ['ts'],
     spec: ['test/*.test.ts'],
   },
+})
+
+new TextFile(project, '.nvmrc', {
+  lines: [nodeVersion],
 })
 
 project.tasks.tryFind('test')?.exec('mocha')
