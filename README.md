@@ -1,6 +1,14 @@
 # Axios-Error-Redact
+
 Library to redact sensitive information from Axios errors.
 This can be used as an response interceptor for axios instances, or can be used standalone.
+
+# Compatibility
+
+Works with 
+
+- `axios@^0`
+- `axios@^1`
 
 # Getting started
 
