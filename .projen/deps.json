@@ -49,10 +49,6 @@
       "type": "build"
     },
     {
-      "name": "json-schema",
-      "type": "build"
-    },
-    {
       "name": "mocha",
       "type": "build"
     },
