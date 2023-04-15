@@ -5,7 +5,13 @@ export const redactedKeyword = '<REDACTED>'
 const queryParamsRegex = /(?<=\?|#)\S+/ig
 const pathParamsRegex = /(\?|#)\S+/ig
 
-function joinURL(base: string, path: string, queryPath = '') {
+/**
+ * @param base
+ * @param path
+ * @param queryPath
+ * @returns Joined URL.
+ */
+function joinURL(base: string, path: string, queryPath = ''): string {
   if (!base)
     return `${path}${queryPath}`
 
@@ -13,6 +19,11 @@ function joinURL(base: string, path: string, queryPath = '') {
   return `${base}${joint}${path}${queryPath}`
 }
 
+/**
+ *
+ * @param input
+ * @returns Extracted query path from input.
+ */
 function extractQueryPath(input: string | undefined): string {
   if (!input)
     return ''
@@ -21,6 +32,11 @@ function extractQueryPath(input: string | undefined): string {
   return match || ''
 }
 
+/**
+ *
+ * @param input
+ * @returns input as JSON object if valid JSON.
+ */
 function parseData(input: string): any {
   try {
     return JSON.parse(input)
@@ -29,6 +45,12 @@ function parseData(input: string): any {
   }
 }
 
+/**
+ *
+ * @param data
+ * @param flag
+ * @returns data object with fields redacted as specified by flag.
+ */
 function redactData(data: any, flag: boolean): any {
   if (!data)
     return data
@@ -67,6 +89,7 @@ export interface HttpErrorResponse {
   };
 }
 
+
 export class AxiosErrorRedactor {
   redactRequestData: boolean
   redactResponseData: boolean
@@ -93,6 +116,11 @@ export class AxiosErrorRedactor {
     return this
   }
 
+  /**
+   *
+   * @param url
+   * @returns Query string with parameters redacted.
+   */
   private redactUrlQueryParams(url: string | undefined): string {
     if (!url)
       return ''
@@ -101,6 +129,11 @@ export class AxiosErrorRedactor {
   }
 
 
+  /**
+   *
+   * @param error
+   * @returns Axios error with url and request/response data redacted.
+   */
   redactError(error: AxiosError | null | undefined): (HttpErrorResponse | null | undefined | Error) {
     if (!error || !error.isAxiosError)
       return error
@@ -128,6 +161,10 @@ export class AxiosErrorRedactor {
   }
 }
 
+/**
+ *
+ * @returns Axios error interceptor
+ */
 export function getErrorInterceptor(): ((error: AxiosError | null | undefined)=> Promise<HttpErrorResponse | null | undefined | Error>) {
   const redactor = new AxiosErrorRedactor()
 
