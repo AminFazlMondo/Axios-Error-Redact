@@ -12,6 +12,7 @@
     ".mergify.yml",
     ".mocharc.json",
     ".npmignore",
+    ".npmrc",
     ".nvmrc",
     ".projen/deps.json",
     ".projen/files.json",
