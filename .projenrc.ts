@@ -37,7 +37,7 @@ const project = new typescript.TypeScriptProject({
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   npmTokenSecret: 'NPM_TOKEN',
-  minNodeVersion: '14.18.1',
+  minNodeVersion: '16.20.0',
   tsconfig: {
     compilerOptions: {
       target: 'ES2019',
