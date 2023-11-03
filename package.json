@@ -47,7 +47,7 @@
     "eslint-plugin-import": "^2.29.0",
     "mocha": "^10.2.0",
     "npm-check-updates": "^16",
-    "projen": "^0.76.16",
+    "projen": "^0.76.17",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.1",
