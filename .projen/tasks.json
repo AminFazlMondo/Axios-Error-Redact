@@ -268,13 +268,13 @@
           "exec": "npm update npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,chai,constructs,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,mocha,npm-check-updates,projen,standard-version,ts-eager,ts-node,typedoc,typescript,axios"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,chai,constructs,eslint-import-resolver-typescript,eslint-plugin-import,eslint,mocha,npm-check-updates,projen,standard-version,ts-eager,ts-node,typedoc,typescript,axios"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai constructs eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint mocha npm-check-updates projen standard-version ts-eager ts-node typedoc typescript axios"
+          "exec": "npm update @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha npm-check-updates projen standard-version ts-eager ts-node typedoc typescript axios"
         },
         {
           "exec": "npx projen"
