@@ -49,7 +49,7 @@
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.25.3",
+    "typedoc": "^0.25.4",
     "typescript": "^4.9.5"
   },
   "dependencies": {
