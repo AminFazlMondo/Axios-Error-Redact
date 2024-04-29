@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
-    "@types/chai": "^4.3.12",
+    "@types/chai": "^4.3.14",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^6",
@@ -44,12 +44,12 @@
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
-    "mocha": "^10.3.0",
-    "projen": "^0.80.10",
+    "mocha": "^10.4.0",
+    "projen": "^0.81.4",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.12",
+    "typedoc": "^0.25.13",
     "typescript": "^4.9.5"
   },
   "dependencies": {

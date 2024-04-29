@@ -7,7 +7,7 @@ const redactor = new AxiosErrorRedactor()
 context('Invalid URL', ()=> {
 
   it('Should return details for invalid url request', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.get(url).catch(e => redactor.redactError(e))
 
     const expectedResponse: HttpErrorResponse = {
@@ -16,7 +16,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -29,8 +32,8 @@ context('Invalid URL', ()=> {
   })
 
   it('Should return details for invalid url request with base URL', async () => {
-    const path = 'Invalid-URL'
-    const baseURL = 'http://example.com'
+    const path = '404'
+    const baseURL = 'https://httpstat.us'
     const instance = axios.create({
       baseURL,
     })
@@ -42,7 +45,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL,
@@ -73,7 +79,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact details in query params of path', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.get(`${url}?secret=mySecret`).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
@@ -81,7 +87,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -94,7 +103,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact details in query params', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.get(url, {params: {secret: 'my-secret'}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
@@ -102,7 +111,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -115,7 +127,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact details in fragment params of path', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.get(`${url}#mySecret`).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}#${redactedKeyword}`,
@@ -123,7 +135,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -136,7 +151,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should skip redact details in query params if configured', async () => {
-    const url = 'http://example.com/Invalid-URL?secret=mySecret'
+    const url = 'https://httpstat.us/404?secret=mySecret'
     const redactor2 = new AxiosErrorRedactor().skipQueryData()
     const response = await axios.get(url).catch(e => redactor2.redactError(e))
     const expectedResponse: HttpErrorResponse = {
@@ -145,7 +160,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -158,7 +176,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact request data', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.post(url, {foo: {bar: 'my-secret'}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
@@ -166,7 +184,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -183,7 +204,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact request data, with null value', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.post(url, {foo: {bar: 'my-secret', test: null}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
@@ -191,7 +212,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
@@ -209,7 +233,7 @@ context('Invalid URL', ()=> {
   })
 
   it('Should redact request data, array of values', async () => {
-    const url = 'http://example.com/Invalid-URL'
+    const url = 'https://httpstat.us/404'
     const response = await axios.post(url, [{foo: 'foo'}, {bar: 1}]).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
@@ -217,7 +241,10 @@ context('Invalid URL', ()=> {
       response: {
         statusCode: 404,
         statusMessage: 'Not Found',
-        data: redactedKeyword,
+        data: {
+          code: redactedKeyword,
+          description: redactedKeyword,
+        },
       },
       request: {
         baseURL: '',
