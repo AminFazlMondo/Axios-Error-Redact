@@ -44,7 +44,7 @@
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
-    "mocha": "^10.5.0",
+    "mocha": "^10.5.1",
     "projen": "^0.82.8",
     "standard-version": "^9",
     "ts-eager": "^2.0.2",
