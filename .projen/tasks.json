@@ -32,7 +32,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -251,7 +252,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -273,7 +275,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen standard-version ts-eager ts-node typedoc typescript axios"
+          "exec": "npm update @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen ts-eager ts-node typedoc typescript axios"
         },
         {
           "exec": "npx projen"
