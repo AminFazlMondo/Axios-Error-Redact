@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
-    "@types/chai": "^4.3.18",
+    "@types/chai": "^4.3.19",
     "@types/mocha": "^10.0.7",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^7",
@@ -46,7 +46,7 @@
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.29.1",
     "mocha": "^10.7.3",
-    "projen": "^0.86.4",
+    "projen": "^0.86.5",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.26.6",
