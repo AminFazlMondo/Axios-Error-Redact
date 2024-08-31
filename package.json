@@ -46,14 +46,14 @@
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.29.1",
     "mocha": "^10.7.3",
-    "projen": "^0.86.5",
+    "projen": "^0.86.6",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.26.6",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "axios": "^1.7.5"
+    "axios": "^1.7.6"
   },
   "keywords": [
     "axios",
