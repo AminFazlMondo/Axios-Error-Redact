@@ -1,6 +1,6 @@
 import {JsonFile, typescript, javascript, TextFile} from 'projen'
 
-const nodeVersion = '16'
+const nodeVersion = '20'
 
 const project = new typescript.TypeScriptProject({
   projenrcTs: true,
@@ -37,7 +37,7 @@ const project = new typescript.TypeScriptProject({
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   npmTokenSecret: 'NPM_TOKEN',
-  minNodeVersion: '16.20.0',
+  minNodeVersion: '18.0.0',
   tsconfig: {
     compilerOptions: {
       target: 'ES2019',
@@ -56,6 +56,7 @@ const project = new typescript.TypeScriptProject({
   },
   autoApproveUpgrades: true,
   workflowNodeVersion: nodeVersion,
+  releaseFailureIssue: true,
 })
 
 const additionalRules = {
