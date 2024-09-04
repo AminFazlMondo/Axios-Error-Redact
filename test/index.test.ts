@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {expect} from 'chai'
-import {AxiosErrorRedactor, getErrorInterceptor, HttpErrorResponse, redactedKeyword} from '../src/index'
+import {AxiosErrorRedactor, createErrorInterceptor, HttpErrorResponse, redactedKeyword} from '../src/index'
 
 const redactor = new AxiosErrorRedactor()
 
@@ -399,7 +399,7 @@ describe('Valid Remote URL', () => {
 describe('Simple interceptor', () => {
   const baseURL = 'https://reqres.in/api'
   const instance = axios.create({baseURL})
-  instance.interceptors.response.use(undefined, getErrorInterceptor())
+  instance.interceptors.response.use(undefined, createErrorInterceptor())
 
   it('Should return details for bad request response', async () => {
     const url = 'register'
