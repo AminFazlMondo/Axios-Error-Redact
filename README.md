@@ -5,7 +5,7 @@ This can be used as an response interceptor for axios instances, or can be used 
 
 # Compatibility
 
-Works with 
+Works with
 
 - `axios@^0`
 - `axios@^1`
@@ -24,13 +24,21 @@ The redactor can simply be used in an interceptor to extract non-sensitive data 
 
 ```javascript
 import axios from 'axios'
-import {getErrorInterceptor} from 'axios-error-redact'
+import {createErrorInterceptor} from 'axios-error-redact'
 
 const instance = axios.create({baseURL: 'http://example.com'})
 
-instance.interceptors.response.use(undefined, getErrorInterceptor())
+instance.interceptors.response.use(undefined, createErrorInterceptor())
 
-// instance.get()
+try {
+  await instance.get()
+} catch(error) {
+  // The isHttpErrorResponse helper can be used to ensure the thrown error is a redacted error
+  if (isHttpErrorResponse(error)) {
+    console.error(error.response.statusMessage, error.message)
+  }
+}
+
 
 ```
 
@@ -77,7 +85,7 @@ const result = axios.get('http://example.com')
 
 ### Constructor
 
-The redactor object can be initiated with some defaults; in which all of the sensitive data will be redacted (request, response, query)
+The redactor is initialized with some defaults; in which all of the sensitive data will be redacted (request, response, query)
 
 ```javascript
 import {AxiosErrorRedactor} from 'axios-error-redact'
@@ -86,22 +94,22 @@ const redactor = new AxiosErrorRedactor()
 
 ```
 
-The constructor also accepts boolean values to enable or disable these
+The constructor also accepts options to enable or disable these
 
 ```javascript
 import {AxiosErrorRedactor} from 'axios-error-redact'
 
-const redactor = new AxiosErrorRedactor(
-  false, //redactRequestData
-  false, //redactResponseData
-  false, //redactQueryData
-  )
+const redactor = new AxiosErrorRedactor({
+  redactRequestDataEnabled: false,
+  redactResponseDataEnabled: false,
+  redactQueryDataEnabled: false,
+})
 
 ```
 
 ### Main Function
 
-The main function that can be called on the initiated object is `redactError` which accepts the error as the input and returns the redacted information in and object of type `HttpErrorResponse`
+The main function that can be called on the initiated object is `redactError` which accepts the error as the input and returns the redacted information in an object of type `HttpErrorResponse`
 
 ```javascript
 import axios from 'axios'
@@ -121,7 +129,9 @@ There are three functions that can be used and chained after the initiated objec
 ```javascript
 import {AxiosErrorRedactor} from 'axios-error-redact'
 
-const redactor = new AxiosErrorRedactor().skipRequestData().skipQueryData()
+const redactor = new AxiosErrorRedactor()
+  .skipRequestData()
+  .skipQueryData()
 
 ```
 
@@ -131,6 +141,7 @@ The redact library will extract information from axios error and return an objec
 
 ```javascript
 HttpErrorResponse {
+  isErrorRedactedResponse: true;
   message: string;
   fullURL: string;
   response: {
@@ -148,3 +159,22 @@ HttpErrorResponse {
 ```
 
 If the error is not an axios error, then the same error will be returned.
+
+### Type guard
+
+The `isHttpErrorResponse()` function can be used as a type guard in TypeScript to narrow the error type.
+
+This can be useful when multiple error types can be thrown from the try block.
+
+Be sure not to use the `isAxiosError()` type guard provided by Axios since all intercepted Axios errors will be transformed into a `HttpErrorResponse`
+
+```typescript
+try {
+  ...
+} catch(error: unknown) {
+  if (isHttpErrorResponse(error)) {
+    // error is narrowed to type HttpErrorResponse
+  }
+}
+```
+
