@@ -13,6 +13,7 @@ describe('Simple interceptor', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 400',
       response: {
         statusCode: 400,

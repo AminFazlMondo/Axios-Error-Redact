@@ -181,7 +181,6 @@ export function createErrorInterceptor(): ((error: AxiosError | null | undefined
  * @returns whether the input is an HttpErrorResponse
  */
 export function isHttpErrorResponse(input: any): input is HttpErrorResponse {
-  return input &&
-    typeof input === 'object' &&
-    typeof input.isErrorRedactedResponse
+  return typeof input === 'object' &&
+    Boolean(input?.isErrorRedactedResponse)
 }
