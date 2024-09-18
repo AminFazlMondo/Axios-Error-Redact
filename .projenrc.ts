@@ -16,7 +16,7 @@ const project = new typescript.TypeScriptProject({
     'projen',
     'typescript',
   ],
-  majorVersion: 0,
+  majorVersion: 1,
   packageName: 'axios-error-redact',
   packageManager: javascript.NodePackageManager.NPM,
   repository: 'https://github.com/AminFazlMondo/Axios-Error-Redact.git',
