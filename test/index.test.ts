@@ -12,6 +12,7 @@ context('Invalid URL', ()=> {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -41,6 +42,7 @@ context('Invalid URL', ()=> {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${path}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -83,6 +85,7 @@ context('Invalid URL', ()=> {
     const response = await axios.get(`${url}?secret=mySecret`).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -107,6 +110,7 @@ context('Invalid URL', ()=> {
     const response = await axios.get(url, {params: {secret: 'my-secret'}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -131,6 +135,7 @@ context('Invalid URL', ()=> {
     const response = await axios.get(`${url}#mySecret`).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}#${redactedKeyword}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -156,6 +161,7 @@ context('Invalid URL', ()=> {
     const response = await axios.get(url).catch(e => redactor2.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -180,6 +186,7 @@ context('Invalid URL', ()=> {
     const response = await axios.post(url, {foo: {bar: 'my-secret'}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -208,6 +215,7 @@ context('Invalid URL', ()=> {
     const response = await axios.post(url, {foo: {bar: 'my-secret', test: null}}).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -237,6 +245,7 @@ context('Invalid URL', ()=> {
     const response = await axios.post(url, [{foo: 'foo'}, {bar: 1}]).catch(e => redactor.redactError(e))
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -274,6 +283,7 @@ describe('Valid Remote URL', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 404',
       response: {
         statusCode: 404,
@@ -296,6 +306,7 @@ describe('Valid Remote URL', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 400',
       response: {
         statusCode: 400,
@@ -323,6 +334,7 @@ describe('Valid Remote URL', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 400',
       response: {
         statusCode: 400,
@@ -351,6 +363,7 @@ describe('Valid Remote URL', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 400',
       response: {
         statusCode: 400,
@@ -377,6 +390,7 @@ describe('Valid Remote URL', () => {
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
+      isErrorRedactedResponse: true,
       message: 'Request failed with status code 400',
       response: {
         statusCode: 400,
