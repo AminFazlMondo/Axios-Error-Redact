@@ -145,6 +145,7 @@ export class AxiosErrorRedactor {
     const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath))
 
     return {
+      isErrorRedactedResponse: true,
       fullURL,
       message: error.message,
       response: {
@@ -182,8 +183,5 @@ export function createErrorInterceptor(): ((error: AxiosError | null | undefined
 export function isHttpErrorResponse(input: any): input is HttpErrorResponse {
   return input &&
     typeof input === 'object' &&
-    typeof input.fullURL === 'string' &&
-    typeof input.message === 'string' &&
-    typeof input.request === 'object' &&
-    typeof input.response === 'object'
+    typeof input.isErrorRedactedResponse
 }
