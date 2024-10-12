@@ -49,7 +49,7 @@
     "projen": "^0.88.2",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.26.8",
+    "typedoc": "^0.26.9",
     "typescript": "^5.6.3"
   },
   "dependencies": {
