@@ -47,11 +47,11 @@
     "eslint-import-resolver-typescript": "^3.8.3",
     "eslint-plugin-import": "^2.31.0",
     "mocha": "^10.8.2",
-    "projen": "^0.91.13",
+    "projen": "^0.91.14",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.27.9",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "axios": "^1.8.1"
