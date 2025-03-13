@@ -44,7 +44,7 @@
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
     "eslint": "^9",
-    "eslint-import-resolver-typescript": "^3.8.5",
+    "eslint-import-resolver-typescript": "^3.8.6",
     "eslint-plugin-import": "^2.31.0",
     "mocha": "^10.8.2",
     "projen": "^0.91.14",
@@ -54,7 +54,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "axios": "^1.8.2"
+    "axios": "^1.8.3"
   },
   "keywords": [
     "axios",
