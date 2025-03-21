@@ -50,7 +50,7 @@
     "projen": "^0.91.18",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.28.0",
+    "typedoc": "^0.28.1",
     "typescript": "^5.8.2"
   },
   "dependencies": {
