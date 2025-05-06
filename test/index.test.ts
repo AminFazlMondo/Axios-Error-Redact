@@ -67,6 +67,9 @@ context('Invalid URL', ()=> {
     const baseURL = 'http://example.com'
     const instance = axios.create({
       baseURL,
+      headers: {
+        'x-api-key': 'reqres-free-v1',
+      },
     })
 
     const error = new Error('message')
@@ -275,7 +278,12 @@ context('Invalid URL', ()=> {
 
 describe('Valid Remote URL', () => {
   const baseURL = 'https://reqres.in/api'
-  const instance = axios.create({baseURL})
+  const instance = axios.create({
+    baseURL,
+    headers: {
+      'x-api-key': 'reqres-free-v1',
+    },
+  })
 
   it('Should return details for not found response', async () => {
     const url = '/users/23'

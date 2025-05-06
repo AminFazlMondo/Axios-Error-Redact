@@ -33,6 +33,7 @@ const project = new typescript.TypeScriptProject({
     '@types/mocha',
     'ts-eager',
     '@types/babel__core',
+    'axios-mock-adapter',
   ],
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
