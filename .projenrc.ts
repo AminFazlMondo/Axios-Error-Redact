@@ -1,6 +1,6 @@
-import {JsonFile, typescript, javascript, TextFile} from 'projen'
+import { JsonFile, typescript, javascript, TextFile } from 'projen';
 
-const nodeVersion = '20'
+const nodeVersion = '20';
 
 const project = new typescript.TypeScriptProject({
   projenrcTs: true,
@@ -58,23 +58,7 @@ const project = new typescript.TypeScriptProject({
   autoApproveUpgrades: true,
   workflowNodeVersion: nodeVersion,
   releaseFailureIssue: true,
-})
-
-const additionalRules = {
-  'curly': [
-    'error',
-    'multi',
-    'consistent',
-  ],
-  'semi': [
-    'error',
-    'never',
-  ],
-  'object-curly-spacing': 'error',
-  'nonblock-statement-body-position': ['error', 'below'],
-}
-
-project.eslint?.addRules(additionalRules)
+});
 
 new JsonFile(project, '.mocharc.json', {
   obj: {
@@ -85,11 +69,11 @@ new JsonFile(project, '.mocharc.json', {
     extension: ['ts'],
     spec: ['test/*.test.ts'],
   },
-})
+});
 
 new TextFile(project, '.nvmrc', {
   lines: [nodeVersion],
-})
+});
 
-project.tasks.tryFind('test')?.exec('mocha')
-project.synth()
+project.tasks.tryFind('test')?.exec('mocha');
+project.synth();

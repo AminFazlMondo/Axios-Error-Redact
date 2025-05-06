@@ -1,20 +1,20 @@
-import axios from 'axios'
-import {expect} from 'chai'
-import {createErrorInterceptor, HttpErrorResponse, redactedKeyword} from '../src/index'
+import axios from 'axios';
+import { expect } from 'chai';
+import { createErrorInterceptor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
 describe('Simple interceptor', () => {
-  const baseURL = 'https://reqres.in/api'
+  const baseURL = 'https://reqres.in/api';
   const instance = axios.create({
     baseURL,
     headers: {
       'x-api-key': 'reqres-free-v1',
     },
-  })
-  instance.interceptors.response.use(undefined, createErrorInterceptor())
+  });
+  instance.interceptors.response.use(undefined, createErrorInterceptor());
 
   it('Should return details for bad request response', async () => {
-    const url = 'register'
-    const response = await instance.post(url, {email: 'sydney@fife'}).catch(e => e)
+    const url = 'register';
+    const response = await instance.post(url, { email: 'sydney@fife' }).catch(e => e);
 
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${baseURL}/${url}`,
@@ -35,7 +35,7 @@ describe('Simple interceptor', () => {
           email: redactedKeyword,
         },
       },
-    }
-    expect(response).to.deep.equal(expectedResponse)
-  })
-})
+    };
+    expect(response).to.deep.equal(expectedResponse);
+  });
+});
