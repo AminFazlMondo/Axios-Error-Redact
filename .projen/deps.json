@@ -33,6 +33,10 @@
       "type": "build"
     },
     {
+      "name": "axios-mock-adapter",
+      "type": "build"
+    },
+    {
       "name": "chai",
       "type": "build"
     },

@@ -4,7 +4,12 @@ import {createErrorInterceptor, HttpErrorResponse, redactedKeyword} from '../src
 
 describe('Simple interceptor', () => {
   const baseURL = 'https://reqres.in/api'
-  const instance = axios.create({baseURL})
+  const instance = axios.create({
+    baseURL,
+    headers: {
+      'x-api-key': 'reqres-free-v1',
+    },
+  })
   instance.interceptors.response.use(undefined, createErrorInterceptor())
 
   it('Should return details for bad request response', async () => {

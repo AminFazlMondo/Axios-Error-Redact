@@ -177,16 +177,14 @@
       "name": "publish:github",
       "description": "Publish this package to GitHub Releases",
       "requiredEnv": [
-        "GITHUB_TOKEN",
-        "GITHUB_REPOSITORY",
-        "GITHUB_REF"
+        "GITHUB_TOKEN"
       ],
       "steps": [
         {
           "exec": "test \"$(git branch --show-current)\" = \"main\""
         },
         {
-          "exec": "errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \"Release.tag_name already exists\" $errout; then cat $errout; exit $exitcode; fi"
+          "exec": "errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_SHA 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \"Release.tag_name already exists\" $errout; then cat $errout; exit $exitcode; fi"
         }
       ]
     },
@@ -272,13 +270,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,ts-eager,ts-node,typedoc,typescript,axios"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,axios-mock-adapter,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,ts-eager,ts-node,typedoc,typescript,axios"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @stylistic/eslint-plugin @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen ts-eager ts-node typedoc typescript axios"
+          "exec": "npm update @stylistic/eslint-plugin @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser axios-mock-adapter chai commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen ts-eager ts-node typedoc typescript axios"
         },
         {
           "exec": "npx projen"
