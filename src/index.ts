@@ -1,12 +1,12 @@
-import {AxiosError} from 'axios'
-import {AxiosErrorRedactorOptions, HttpErrorResponse} from './types'
+import { AxiosError } from 'axios';
+import { AxiosErrorRedactorOptions, HttpErrorResponse } from './types';
 
-export * from './types'
+export * from './types';
 
-export const redactedKeyword = '<REDACTED>'
+export const redactedKeyword = '<REDACTED>';
 
-const queryParamsRegex = /(?<=\?|#)\S+/ig
-const pathParamsRegex = /(\?|#)\S+/ig
+const queryParamsRegex = /(?<=\?|#)\S+/ig;
+const pathParamsRegex = /(\?|#)\S+/ig;
 
 /**
  * construct the full url
@@ -16,11 +16,10 @@ const pathParamsRegex = /(\?|#)\S+/ig
  * @returns full url
  */
 function joinURL(base: string, path: string, queryPath = '') {
-  if (!base)
-    return `${path}${queryPath}`
+  if (!base) {return `${path}${queryPath}`;}
 
-  const joint = base.endsWith('/') || path.startsWith('/') ? '' : '/'
-  return `${base}${joint}${path}${queryPath}`
+  const joint = base.endsWith('/') || path.startsWith('/') ? '' : '/';
+  return `${base}${joint}${path}${queryPath}`;
 }
 
 /**
@@ -29,11 +28,10 @@ function joinURL(base: string, path: string, queryPath = '') {
  * @returns query path parameters if found, otherwise empty string
  */
 function extractQueryPath(input: string | undefined): string {
-  if (!input)
-    return ''
+  if (!input) {return '';}
 
-  const match = input.match(pathParamsRegex)?.pop()
-  return match || ''
+  const match = input.match(pathParamsRegex)?.pop();
+  return match || '';
 }
 
 /**
@@ -43,9 +41,9 @@ function extractQueryPath(input: string | undefined): string {
  */
 function parseData(input: unknown): any {
   try {
-    return JSON.parse(input as string)
+    return JSON.parse(input as string);
   } catch {
-    return
+    return;
   }
 }
 
@@ -56,39 +54,36 @@ function parseData(input: unknown): any {
  * @returns redacted data
  */
 function redactData(data: unknown, flag: boolean): unknown {
-  if (!data)
-    return data
+  if (!data) {return data;}
 
 
   if (typeof data === 'object') {
-    if (Array.isArray(data))
-      return data.map(value => redactData(value, flag))
+    if (Array.isArray(data)) {return data.map(value => redactData(value, flag));}
 
 
-    return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]))
+    return Object.fromEntries(Object.entries(data).map(([key, value])=> [key, redactData(value, flag)]));
   }
 
-  const parsedData = parseData(data)
+  const parsedData = parseData(data);
 
-  if (parsedData && typeof parsedData === 'object')
-    return redactData(parsedData, flag)
+  if (parsedData && typeof parsedData === 'object') {return redactData(parsedData, flag);}
 
 
-  return flag ? redactedKeyword : data
+  return flag ? redactedKeyword : data;
 }
 
 /**
  * This class is used to redact sensitive data from Axios error objects.
  */
 export class AxiosErrorRedactor {
-  private redactRequestData: boolean
-  private redactResponseData: boolean
-  private redactQueryData: boolean
+  private redactRequestData: boolean;
+  private redactResponseData: boolean;
+  private redactQueryData: boolean;
 
   constructor(options?: AxiosErrorRedactorOptions) {
-    this.redactQueryData = options?.redactQueryDataEnabled ?? true
-    this.redactRequestData = options?.redactRequestDataEnabled ?? true
-    this.redactResponseData = options?.redactResponseDataEnabled ?? true
+    this.redactQueryData = options?.redactQueryDataEnabled ?? true;
+    this.redactRequestData = options?.redactRequestDataEnabled ?? true;
+    this.redactResponseData = options?.redactResponseDataEnabled ?? true;
   }
 
   /**
@@ -96,8 +91,8 @@ export class AxiosErrorRedactor {
    * @returns the instance of the redactor
    */
   skipRequestData(): AxiosErrorRedactor {
-    this.redactRequestData = false
-    return this
+    this.redactRequestData = false;
+    return this;
   }
 
   /**
@@ -105,8 +100,8 @@ export class AxiosErrorRedactor {
    * @returns the instance of the redactor
    */
   skipResponseData(): AxiosErrorRedactor {
-    this.redactResponseData = false
-    return this
+    this.redactResponseData = false;
+    return this;
   }
 
   /**
@@ -114,8 +109,8 @@ export class AxiosErrorRedactor {
    * @returns the instance of the redactor
    */
   skipQueryData(): AxiosErrorRedactor {
-    this.redactQueryData = false
-    return this
+    this.redactQueryData = false;
+    return this;
   }
 
   /**
@@ -124,10 +119,9 @@ export class AxiosErrorRedactor {
    * @returns redacted query string
    */
   private redactUrlQueryParams(url: string | undefined): string {
-    if (!url)
-      return ''
+    if (!url) {return '';}
 
-    return this.redactQueryData ? url.replace(queryParamsRegex, redactedKeyword) : url
+    return this.redactQueryData ? url.replace(queryParamsRegex, redactedKeyword) : url;
   }
 
   /**
@@ -136,13 +130,12 @@ export class AxiosErrorRedactor {
    * @returns HttpErrorResponse in case of axios error, otherwise passthrough the error
    */
   redactError(error: AxiosError | null | undefined): (HttpErrorResponse | null | undefined | Error) {
-    if (!error || !error.isAxiosError)
-      return error
+    if (!error || !error.isAxiosError) {return error;}
 
-    const baseURL = this.redactUrlQueryParams(error.config?.baseURL)
-    const path = this.redactUrlQueryParams(error.config?.url)
-    const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path)
-    const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath))
+    const baseURL = this.redactUrlQueryParams(error.config?.baseURL);
+    const path = this.redactUrlQueryParams(error.config?.url);
+    const queryPath = extractQueryPath(path) ? '' : extractQueryPath(error.request?.path);
+    const fullURL = this.redactUrlQueryParams(joinURL(baseURL, path, queryPath));
 
     return {
       isErrorRedactedResponse: true,
@@ -159,7 +152,7 @@ export class AxiosErrorRedactor {
         method: error.config?.method || '',
         data: redactData(error.config?.data, this.redactRequestData),
       },
-    }
+    };
   }
 }
 
@@ -168,11 +161,11 @@ export class AxiosErrorRedactor {
  * @returns error interceptor for axios
  */
 export function createErrorInterceptor(): ((error: AxiosError | null | undefined)=> Promise<HttpErrorResponse | null | undefined | Error>) {
-  const redactor = new AxiosErrorRedactor()
+  const redactor = new AxiosErrorRedactor();
 
   return function (error: AxiosError | null | undefined): Promise<HttpErrorResponse | null | undefined | Error> {
-    return Promise.reject(redactor.redactError(error))
-  }
+    return Promise.reject(redactor.redactError(error));
+  };
 }
 
 /**
@@ -182,5 +175,5 @@ export function createErrorInterceptor(): ((error: AxiosError | null | undefined
  */
 export function isHttpErrorResponse(input: any): input is HttpErrorResponse {
   return typeof input === 'object' &&
-    Boolean(input?.isErrorRedactedResponse)
+    Boolean(input?.isErrorRedactedResponse);
 }
