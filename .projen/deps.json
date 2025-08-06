@@ -33,10 +33,6 @@
       "type": "build"
     },
     {
-      "name": "axios-mock-adapter",
-      "type": "build"
-    },
-    {
       "name": "chai",
       "type": "build"
     },
@@ -72,6 +68,10 @@
       "type": "build"
     },
     {
+      "name": "testcontainers",
+      "type": "build"
+    },
+    {
       "name": "ts-eager",
       "type": "build"
     },
@@ -85,6 +85,10 @@
     },
     {
       "name": "typescript",
+      "type": "build"
+    },
+    {
+      "name": "wiremock-captain",
       "type": "build"
     },
     {

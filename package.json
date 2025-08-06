@@ -40,7 +40,6 @@
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "axios-mock-adapter": "^2.1.0",
     "chai": "^4.5.0",
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
@@ -49,10 +48,12 @@
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^10.8.2",
     "projen": "^0.94.0",
+    "testcontainers": "^10.28.0",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.7",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wiremock-captain": "^3.6.0"
   },
   "dependencies": {
     "axios": "^1.10.0"
