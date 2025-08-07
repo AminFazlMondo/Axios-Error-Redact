@@ -33,7 +33,8 @@ const project = new typescript.TypeScriptProject({
     '@types/mocha',
     'ts-eager',
     '@types/babel__core',
-    'axios-mock-adapter',
+    'testcontainers',
+    'wiremock-captain',
   ],
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
@@ -64,7 +65,7 @@ new JsonFile(project, '.mocharc.json', {
   obj: {
     recursive: true,
     require: ['ts-eager/register'],
-    timeout: 8000,
+    timeout: 30_000,
     slow: 3000,
     extension: ['ts'],
     spec: ['test/*.test.ts'],
