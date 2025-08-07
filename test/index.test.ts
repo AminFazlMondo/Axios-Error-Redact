@@ -1,13 +1,67 @@
 import axios from 'axios';
 import { expect } from 'chai';
-import { AxiosErrorRedactor, createErrorInterceptor, HttpErrorResponse, redactedKeyword } from '../src/index';
+import { GenericContainer, Wait } from 'testcontainers';
+import { WireMock, IWireMockResponse } from 'wiremock-captain';
+import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
 const redactor = new AxiosErrorRedactor();
 
 context('Invalid URL', ()=> {
 
+  let hostName: string;
+  let port: number;
+  let wireMockCaptain: WireMock;
+
+  before(async () => {
+    const wireMockContainer = new GenericContainer('wiremock/wiremock')
+      .withExposedPorts(8080)
+      .withWaitStrategy(Wait.forListeningPorts());
+    const wireMockStartedContainer = await wireMockContainer.start();
+    hostName = wireMockStartedContainer.getHost();
+    port = wireMockStartedContainer.getMappedPort(8080);
+    wireMockCaptain = new WireMock(`http://${hostName}:${port}`);
+
+    const notFoundResponse: IWireMockResponse = {
+      status: 404,
+      body: {
+        code: 404,
+        description: 'Not Found',
+      },
+    };
+
+    await wireMockCaptain.register(
+      {
+        endpoint: '/404',
+        method: 'GET',
+      },
+      notFoundResponse,
+    );
+    await wireMockCaptain.register(
+      {
+        endpoint: '/404?secret=mySecret',
+        method: 'GET',
+      },
+      notFoundResponse,
+    );
+    await wireMockCaptain.register(
+      {
+        endpoint: '/404#mySecret',
+        method: 'GET',
+      },
+      notFoundResponse,
+    );
+    await wireMockCaptain.register(
+      {
+        endpoint: '/404',
+        method: 'POST',
+      },
+      notFoundResponse,
+    );
+  });
+
   it('Should return details for invalid url request', async () => {
-    const url = 'https://httpstat.us/404';
+
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.get(url).catch(e => redactor.redactError(e));
 
     const expectedResponse: HttpErrorResponse = {
@@ -34,7 +88,7 @@ context('Invalid URL', ()=> {
 
   it('Should return details for invalid url request with base URL', async () => {
     const path = '404';
-    const baseURL = 'https://httpstat.us';
+    const baseURL = `http://${hostName}:${port}`;
     const instance = axios.create({
       baseURL,
     });
@@ -84,7 +138,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact details in query params of path', async () => {
-    const url = 'https://httpstat.us/404';
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.get(`${url}?secret=mySecret`).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
@@ -109,8 +163,8 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact details in query params', async () => {
-    const url = 'https://httpstat.us/404';
-    const response = await axios.get(url, { params: { secret: 'my-secret' } }).catch(e => redactor.redactError(e));
+    const url = `http://${hostName}:${port}/404`;
+    const response = await axios.get(url, { params: { secret: 'mySecret' } }).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}?${redactedKeyword}`,
       isErrorRedactedResponse: true,
@@ -134,7 +188,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact details in fragment params of path', async () => {
-    const url = 'https://httpstat.us/404';
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.get(`${url}#mySecret`).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: `${url}#${redactedKeyword}`,
@@ -159,7 +213,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should skip redact details in query params if configured', async () => {
-    const url = 'https://httpstat.us/404?secret=mySecret';
+    const url = `http://${hostName}:${port}/404?secret=mySecret`;
     const redactor2 = new AxiosErrorRedactor().skipQueryData();
     const response = await axios.get(url).catch(e => redactor2.redactError(e));
     const expectedResponse: HttpErrorResponse = {
@@ -185,7 +239,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact request data', async () => {
-    const url = 'https://httpstat.us/404';
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.post(url, { foo: { bar: 'my-secret' } }).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
@@ -214,7 +268,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact request data, with null value', async () => {
-    const url = 'https://httpstat.us/404';
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.post(url, { foo: { bar: 'my-secret', test: null } }).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,
@@ -244,7 +298,7 @@ context('Invalid URL', ()=> {
   });
 
   it('Should redact request data, array of values', async () => {
-    const url = 'https://httpstat.us/404';
+    const url = `http://${hostName}:${port}/404`;
     const response = await axios.post(url, [{ foo: 'foo' }, { bar: 1 }]).catch(e => redactor.redactError(e));
     const expectedResponse: HttpErrorResponse = {
       fullURL: url,

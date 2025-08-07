@@ -3,7 +3,7 @@
   "require": [
     "ts-eager/register"
   ],
-  "timeout": 8000,
+  "timeout": 30000,
   "slow": 3000,
   "extension": [
     "ts"

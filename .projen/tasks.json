@@ -270,13 +270,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,axios-mock-adapter,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,ts-eager,ts-node,typedoc,typescript,axios"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,testcontainers,ts-eager,ts-node,typedoc,typescript,wiremock-captain,axios"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @stylistic/eslint-plugin @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser axios-mock-adapter chai commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen ts-eager ts-node typedoc typescript axios"
+          "exec": "npm update @stylistic/eslint-plugin @types/babel__core @types/chai @types/mocha @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser chai commit-and-tag-version constructs eslint-import-resolver-typescript eslint-plugin-import eslint mocha projen testcontainers ts-eager ts-node typedoc typescript wiremock-captain axios"
         },
         {
           "exec": "npx projen"
