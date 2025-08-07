@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { expect } from 'chai';
-import { GenericContainer } from 'testcontainers';
+import { GenericContainer, Wait } from 'testcontainers';
 import { WireMock, IWireMockResponse } from 'wiremock-captain';
 import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
@@ -13,7 +13,9 @@ context('Invalid URL', ()=> {
   let wireMockCaptain: WireMock;
 
   before(async () => {
-    const wireMockContainer = new GenericContainer('wiremock/wiremock').withExposedPorts(8080);
+    const wireMockContainer = new GenericContainer('wiremock/wiremock')
+      .withExposedPorts(8080)
+      .withWaitStrategy(Wait.forListeningPorts());
     const wireMockStartedContainer = await wireMockContainer.start();
     hostName = wireMockStartedContainer.getHost();
     port = wireMockStartedContainer.getMappedPort(8080);
