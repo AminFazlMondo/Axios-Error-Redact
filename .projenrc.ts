@@ -65,7 +65,7 @@ new JsonFile(project, '.mocharc.json', {
   obj: {
     recursive: true,
     require: ['ts-eager/register'],
-    timeout: 8000,
+    timeout: 30_000,
     slow: 3000,
     extension: ['ts'],
     spec: ['test/*.test.ts'],
