@@ -47,12 +47,12 @@
     "eslint-import-resolver-typescript": "^3.10.1",
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^10.8.2",
-    "projen": "^0.96.3",
+    "projen": "^0.96.5",
     "testcontainers": "^10.28.0",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.13",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
     "wiremock-captain": "^3.6.1"
   },
   "dependencies": {
