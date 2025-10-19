@@ -1,6 +1,6 @@
 import { JsonFile, typescript, javascript, TextFile } from 'projen';
 
-const nodeVersion = '20';
+const workflowNodeVersion = '24';
 
 const project = new typescript.TypeScriptProject({
   projenrcTs: true,
@@ -38,7 +38,7 @@ const project = new typescript.TypeScriptProject({
   ],
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
-  npmTokenSecret: 'NPM_TOKEN',
+  npmTrustedPublishing: true,
   minNodeVersion: '18.0.0',
   tsconfig: {
     compilerOptions: {
@@ -57,7 +57,7 @@ const project = new typescript.TypeScriptProject({
     allowedUsernames: ['AminFazlMondo'],
   },
   autoApproveUpgrades: true,
-  workflowNodeVersion: nodeVersion,
+  workflowNodeVersion,
   releaseFailureIssue: true,
 });
 
@@ -73,7 +73,7 @@ new JsonFile(project, '.mocharc.json', {
 });
 
 new TextFile(project, '.nvmrc', {
-  lines: [nodeVersion],
+  lines: [workflowNodeVersion],
 });
 
 project.tasks.tryFind('test')?.exec('mocha');
