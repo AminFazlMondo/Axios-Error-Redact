@@ -269,7 +269,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,testcontainers,ts-eager,ts-node,typedoc,typescript,wiremock-captain,axios"
+          "exec": "npx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/babel__core,@types/chai,@types/mocha,chai,eslint-import-resolver-typescript,eslint-plugin-import,mocha,projen,testcontainers,ts-eager,ts-node,typedoc,typescript,wiremock-captain,axios"
         },
         {
           "exec": "npm install"
