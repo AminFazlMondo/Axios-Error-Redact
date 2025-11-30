@@ -51,7 +51,7 @@
     "testcontainers": "^10.28.0",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.28.14",
+    "typedoc": "^0.28.15",
     "typescript": "^5.9.3",
     "wiremock-captain": "^3.6.1"
   },
