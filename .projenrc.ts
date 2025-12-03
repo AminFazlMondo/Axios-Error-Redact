@@ -78,4 +78,12 @@ new TextFile(project, '.nvmrc', {
   lines: [workflowNodeVersion],
 });
 
+// Add pnpm overrides to fix incompatible jest-related package versions
+project.package.addField('pnpm', {
+  overrides: {
+    '@types/jest': '^29.5.14',
+    'ts-jest': '^29.4.6',
+  },
+});
+
 project.synth();
