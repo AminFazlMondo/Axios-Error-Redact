@@ -79,6 +79,9 @@ new TextFile(project, '.nvmrc', {
 });
 
 // Add pnpm overrides to fix incompatible jest-related package versions
+// Jest 29.7.0 exists but @types/jest and ts-jest only go up to 29.5.14 and 29.4.6 respectively
+// Projen auto-generates @types/jest and ts-jest versions based on jestVersion, which results in non-existent versions
+// The pnpm overrides below force the use of the latest available compatible versions
 project.package.addField('pnpm', {
   overrides: {
     '@types/jest': '^29.5.14',
