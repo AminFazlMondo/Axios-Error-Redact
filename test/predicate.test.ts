@@ -1,22 +1,21 @@
-import { expect } from 'chai';
 import { HttpErrorResponse, isHttpErrorResponse } from '../src/index';
 
 describe('Type Predicate', () => {
 
   it('Should not satisfy for undefined', async () => {
-    expect(isHttpErrorResponse(undefined)).to.be.false;
+    expect(isHttpErrorResponse(undefined)).toBe(false);
   });
 
   it('Should not satisfy for null', async () => {
-    expect(isHttpErrorResponse(null)).to.be.false;
+    expect(isHttpErrorResponse(null)).toBe(false);
   });
 
   it('Should not satisfy for empty object', async () => {
-    expect(isHttpErrorResponse({})).to.be.false;
+    expect(isHttpErrorResponse({})).toBe(false);
   });
 
   it('Should not satisfy for random object', async () => {
-    expect(isHttpErrorResponse({ foo: 'bar' })).to.be.false;
+    expect(isHttpErrorResponse({ foo: 'bar' })).toBe(false);
   });
 
   it('Should satisfy for object with false flag', async () => {
@@ -37,7 +36,7 @@ describe('Type Predicate', () => {
       },
 
     };
-    expect(isHttpErrorResponse(input)).to.be.false;
+    expect(isHttpErrorResponse(input)).toBe(false);
   });
 
   it('Should satisfy for object', async () => {
@@ -58,6 +57,6 @@ describe('Type Predicate', () => {
       },
 
     };
-    expect(isHttpErrorResponse(input)).to.be.true;
+    expect(isHttpErrorResponse(input)).toBe(true);
   });
 });
