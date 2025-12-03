@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { expect } from 'chai';
 import { createErrorInterceptor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
 describe('Simple interceptor', () => {
@@ -36,6 +35,6 @@ describe('Simple interceptor', () => {
         },
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 });

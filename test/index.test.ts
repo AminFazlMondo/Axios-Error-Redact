@@ -1,18 +1,18 @@
 import axios from 'axios';
-import { expect } from 'chai';
+
 import { GenericContainer, Wait } from 'testcontainers';
 import { WireMock, IWireMockResponse } from 'wiremock-captain';
 import { AxiosErrorRedactor, HttpErrorResponse, redactedKeyword } from '../src/index';
 
 const redactor = new AxiosErrorRedactor();
 
-context('Invalid URL', ()=> {
+describe('Invalid URL', ()=> {
 
   let hostName: string;
   let port: number;
   let wireMockCaptain: WireMock;
 
-  before(async () => {
+  beforeAll(async () => {
     const wireMockContainer = new GenericContainer('wiremock/wiremock')
       .withExposedPorts(8080)
       .withWaitStrategy(Wait.forListeningPorts());
@@ -83,7 +83,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should return details for invalid url request with base URL', async () => {
@@ -113,7 +113,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should return same Error when request preparation failed', async () => {
@@ -134,7 +134,7 @@ context('Invalid URL', ()=> {
 
     const response = await instance.get(path).catch(e => redactor.redactError(e));
 
-    expect(response).to.be.equal(error);
+    expect(response).toBe(error);
   });
 
   it('Should redact details in query params of path', async () => {
@@ -159,7 +159,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should redact details in query params', async () => {
@@ -184,7 +184,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should redact details in fragment params of path', async () => {
@@ -209,7 +209,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should skip redact details in query params if configured', async () => {
@@ -235,7 +235,7 @@ context('Invalid URL', ()=> {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should redact request data', async () => {
@@ -264,7 +264,7 @@ context('Invalid URL', ()=> {
         },
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should redact request data, with null value', async () => {
@@ -294,7 +294,7 @@ context('Invalid URL', ()=> {
         },
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should redact request data, array of values', async () => {
@@ -326,7 +326,7 @@ context('Invalid URL', ()=> {
         ],
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 });
 
@@ -359,7 +359,7 @@ describe('Valid Remote URL', () => {
         data: undefined,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should return details for bad request response', async () => {
@@ -386,7 +386,7 @@ describe('Valid Remote URL', () => {
         },
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should skip redact details in response data if configured', async () => {
@@ -414,7 +414,7 @@ describe('Valid Remote URL', () => {
         },
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should skip redact details in request data if configured', async () => {
@@ -441,7 +441,7 @@ describe('Valid Remote URL', () => {
         data: payload,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 
   it('Should skip redact details in request and response data if configured', async () => {
@@ -468,7 +468,7 @@ describe('Valid Remote URL', () => {
         data: payload,
       },
     };
-    expect(response).to.deep.equal(expectedResponse);
+    expect(response).toEqual(expectedResponse);
   });
 });
 

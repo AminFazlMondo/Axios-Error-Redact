@@ -13,7 +13,7 @@ Works with
 # Getting started
 
 ```console
-npm i axios-error-redact
+pnpm add axios-error-redact
 ```
 
 ## Interceptor usage

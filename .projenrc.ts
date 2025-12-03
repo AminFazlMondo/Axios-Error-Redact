@@ -1,6 +1,6 @@
-import { JsonFile, typescript, javascript, TextFile } from 'projen';
+import { typescript, javascript, TextFile } from 'projen';
 
-const workflowNodeVersion = '24';
+const workflowNodeVersion = '20';
 
 const project = new typescript.TypeScriptProject({
   projenrcTs: true,
@@ -18,28 +18,42 @@ const project = new typescript.TypeScriptProject({
   ],
   majorVersion: 1,
   packageName: 'axios-error-redact',
-  packageManager: javascript.NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.PNPM,
+  pnpmVersion: '9',
   repository: 'https://github.com/AminFazlMondo/Axios-Error-Redact.git',
   authorEmail: 'amin.fazl@mondo.com.au',
   authorName: 'Amin Fazl',
-  jest: false,
+  jest: true,
+  jestOptions: {
+    jestVersion: '^29.7.0',
+    jestConfig: {
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/test/**/*.test.ts'],
+      collectCoverageFrom: [
+        'src/**/*.ts',
+      ],
+      moduleFileExtensions: ['js', 'ts'],
+    },
+  },
   deps: [
     'axios',
   ],
   devDeps: [
-    'chai',
-    '@types/chai',
-    'mocha',
-    '@types/mocha',
+    'jest@^29.7.0',
+    'jest-junit@^16',
+    'ts-jest@^29.4.6',
+    '@types/jest@^29.5.14',
     'ts-eager',
     '@types/babel__core',
     'testcontainers',
     'wiremock-captain',
+    '@types/node@^20',
   ],
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   npmTrustedPublishing: true,
-  minNodeVersion: '18.0.0',
+  minNodeVersion: '20.0.0',
   tsconfig: {
     compilerOptions: {
       target: 'ES2019',
@@ -49,7 +63,6 @@ const project = new typescript.TypeScriptProject({
   },
   docgen: true,
   npmignore: [
-    '.mocharc.json',
     'docs',
   ],
   publishTasks: true,
@@ -61,20 +74,19 @@ const project = new typescript.TypeScriptProject({
   releaseFailureIssue: true,
 });
 
-new JsonFile(project, '.mocharc.json', {
-  obj: {
-    recursive: true,
-    require: ['ts-eager/register'],
-    timeout: 30_000,
-    slow: 3000,
-    extension: ['ts'],
-    spec: ['test/*.test.ts'],
-  },
-});
-
 new TextFile(project, '.nvmrc', {
   lines: [workflowNodeVersion],
 });
 
-project.tasks.tryFind('test')?.exec('mocha');
+// Add pnpm overrides to fix incompatible jest-related package versions
+// Jest 29.7.0 exists but @types/jest and ts-jest only go up to 29.5.14 and 29.4.6 respectively
+// Projen auto-generates @types/jest and ts-jest versions based on jestVersion, which results in non-existent versions
+// The pnpm overrides below force the use of the latest available compatible versions
+project.package.addField('pnpm', {
+  overrides: {
+    '@types/jest': '^29.5.14',
+    'ts-jest': '^29.4.6',
+  },
+});
+
 project.synth();

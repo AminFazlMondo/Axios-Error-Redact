@@ -10,16 +10,13 @@
       "type": "build"
     },
     {
-      "name": "@types/chai",
-      "type": "build"
-    },
-    {
-      "name": "@types/mocha",
+      "name": "@types/jest",
+      "version": "^29.7.0",
       "type": "build"
     },
     {
       "name": "@types/node",
-      "version": "^18",
+      "version": "^20",
       "type": "build"
     },
     {
@@ -30,10 +27,6 @@
     {
       "name": "@typescript-eslint/parser",
       "version": "^8",
-      "type": "build"
-    },
-    {
-      "name": "chai",
       "type": "build"
     },
     {
@@ -60,7 +53,13 @@
       "type": "build"
     },
     {
-      "name": "mocha",
+      "name": "jest-junit",
+      "version": "^16",
+      "type": "build"
+    },
+    {
+      "name": "jest",
+      "version": "^29.7.0",
       "type": "build"
     },
     {
@@ -73,6 +72,11 @@
     },
     {
       "name": "ts-eager",
+      "type": "build"
+    },
+    {
+      "name": "ts-jest",
+      "version": "^29.7.0",
       "type": "build"
     },
     {
