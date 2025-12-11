@@ -28,6 +28,8 @@ jobs:
         run: |-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Set environment variable for reqres.in steps
+        run: echo "REQRES_API_KEY=${{ secrets.REQRES_API_KEY }}" >> $GITHUB_ENV
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
