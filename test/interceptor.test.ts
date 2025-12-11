@@ -4,10 +4,14 @@ import { createErrorInterceptor, HttpErrorResponse, redactedKeyword } from '../s
 
 describe('Simple interceptor', () => {
   const baseURL = 'https://reqres.in/api';
+  const apiKey = process.env.REQRES_API_KEY;
+  if (!apiKey) {
+    throw new Error('REQRES_API_KEY environment variable is not set');
+  }
   const instance = axios.create({
     baseURL,
     headers: {
-      'x-api-key': 'reqres-free-v1',
+      'x-api-key': apiKey,
     },
   });
   instance.interceptors.response.use(undefined, createErrorInterceptor());

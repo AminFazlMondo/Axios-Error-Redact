@@ -59,6 +59,12 @@ const project = new typescript.TypeScriptProject({
   autoApproveUpgrades: true,
   workflowNodeVersion,
   releaseFailureIssue: true,
+  workflowBootstrapSteps: [
+    {
+      name: 'Set environment variable for reqres.in steps',
+      run: 'echo "REQRES_API_KEY=${{ secrets.REQRES_API_KEY }}" >> $GITHUB_ENV',
+    },
+  ]
 });
 
 new JsonFile(project, '.mocharc.json', {
