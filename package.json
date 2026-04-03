@@ -47,7 +47,7 @@
     "eslint-import-resolver-typescript": "^3.10.1",
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^10.8.2",
-    "projen": "^0.99.27",
+    "projen": "^0.99.33",
     "testcontainers": "^10.28.0",
     "ts-eager": "^2.0.2",
     "ts-node": "^10.9.2",
@@ -69,6 +69,12 @@
   ],
   "engines": {
     "node": ">= 18.0.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "onFail": "ignore"
+    }
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
