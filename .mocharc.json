@@ -1,7 +1,7 @@
 {
   "recursive": true,
   "require": [
-    "ts-eager/register"
+    "ts-node/register/transpile-only"
   ],
   "timeout": 30000,
   "slow": 3000,

@@ -25,7 +25,6 @@
     "stripInternal": true,
     "target": "ES2019",
     "types": [
-      "babel__core",
       "chai",
       "mocha",
       "node"

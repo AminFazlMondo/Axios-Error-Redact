@@ -18,7 +18,7 @@ const project = new typescript.TypeScriptProject({
   ],
   majorVersion: 1,
   packageName: 'axios-error-redact',
-  packageManager: javascript.NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.PNPM,
   repository: 'https://github.com/AminFazlMondo/Axios-Error-Redact.git',
   authorEmail: 'amin.fazl@mondo.com.au',
   authorName: 'Amin Fazl',
@@ -31,8 +31,6 @@ const project = new typescript.TypeScriptProject({
     '@types/chai',
     'mocha',
     '@types/mocha',
-    'ts-eager',
-    '@types/babel__core',
     'testcontainers',
     'wiremock-captain',
   ],
@@ -70,7 +68,7 @@ const project = new typescript.TypeScriptProject({
 new JsonFile(project, '.mocharc.json', {
   obj: {
     recursive: true,
-    require: ['ts-eager/register'],
+    require: ['ts-node/register/transpile-only'],
     timeout: 30_000,
     slow: 3000,
     extension: ['ts'],
