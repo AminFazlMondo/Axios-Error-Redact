@@ -46,7 +46,7 @@
     "eslint-import-resolver-typescript": "^3.10.1",
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^10.8.2",
-    "projen": "^0.99.48",
+    "projen": "^0.99.49",
     "testcontainers": "^10.28.0",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.19",
