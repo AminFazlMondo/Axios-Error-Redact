@@ -63,6 +63,9 @@ const project = new typescript.TypeScriptProject({
       run: 'echo "REQRES_API_KEY=${{ secrets.REQRES_API_KEY }}" >> $GITHUB_ENV',
     },
   ],
+  githubOptions: {
+    dependencyReview: true,
+  },
 });
 
 new JsonFile(project, '.mocharc.json', {
