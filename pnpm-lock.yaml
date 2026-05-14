@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       axios:
-        specifier: ^1.16.0
-        version: 1.16.0
+        specifier: ^1.16.1
+        version: 1.16.1
     devDependencies:
       '@stylistic/eslint-plugin':
         specifier: ^2
@@ -52,8 +52,8 @@ importers:
         specifier: ^10.8.2
         version: 10.8.2
       projen:
-        specifier: ^0.99.60
-        version: 0.99.60(constructs@10.6.0)
+        specifier: ^0.99.61
+        version: 0.99.61(constructs@10.6.0)
       testcontainers:
         specifier: ^10.28.0
         version: 10.28.0
@@ -504,6 +504,10 @@ packages:
   add-stream@1.0.0:
     resolution: {integrity: sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==}
 
+  agent-base@6.0.2:
+    resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
+    engines: {node: '>= 6.0.0'}
+
   ajv@6.14.0:
     resolution: {integrity: sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==}
 
@@ -603,8 +607,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axios@1.16.0:
-    resolution: {integrity: sha512-6hp5CwvTPlN2A31g5dxnwAX0orzM7pmCRDLnZSX772mv8WDqICwFjowHuPs04Mc8deIld1+ejhtaMn5vp6b+1w==}
+  axios@1.16.1:
+    resolution: {integrity: sha512-caYkukvroVPO8KrzuJEb50Hm07KwfBZPEC3VeFHTsqWHvKTsy54hjJz9BS/cdaypROE2rH6xvm9mHX4fgWkr3A==}
 
   axios@1.8.2:
     resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
@@ -1435,6 +1439,10 @@ packages:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
     engines: {node: '>=10'}
 
+  https-proxy-agent@5.0.1:
+    resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
+    engines: {node: '>= 6'}
+
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
@@ -1995,8 +2003,8 @@ packages:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
 
-  projen@0.99.60:
-    resolution: {integrity: sha512-LhMS5frqNRdOuqzq8pLEICMZJm07IsAW0gCwBUQQSs1FHr2YjLv9apq8x7ZwKYuLJ1Y7iaTDE2LdJLB6HQQF4g==}
+  projen@0.99.61:
+    resolution: {integrity: sha512-nzIa5wNQ5dcGcCen24ZEuqfTZaDiW2wHNyGTa+R9Ftfih246XKgQdjPVbX1rSrnhbFpTNQKKVM7vp1ppwD2j8g==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -3021,6 +3029,12 @@ snapshots:
 
   add-stream@1.0.0: {}
 
+  agent-base@6.0.2:
+    dependencies:
+      debug: 4.4.3(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - supports-color
+
   ajv@6.14.0:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -3149,13 +3163,15 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axios@1.16.0:
+  axios@1.16.1:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.5
+      https-proxy-agent: 5.0.1
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
+      - supports-color
 
   axios@1.8.2:
     dependencies:
@@ -4106,6 +4122,13 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  https-proxy-agent@5.0.1:
+    dependencies:
+      agent-base: 6.0.2
+      debug: 4.4.3(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - supports-color
+
   ieee754@1.2.1: {}
 
   ignore@5.3.2: {}
@@ -4657,7 +4680,7 @@ snapshots:
 
   process@0.11.10: {}
 
-  projen@0.99.60(constructs@10.6.0):
+  projen@0.99.61(constructs@10.6.0):
     dependencies:
       constructs: 10.6.0
 
