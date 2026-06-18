@@ -52,8 +52,8 @@ importers:
         specifier: ^10.8.2
         version: 10.8.2
       projen:
-        specifier: ^0.99.74
-        version: 0.99.74(constructs@10.6.0)
+        specifier: ^0.99.76
+        version: 0.99.76(constructs@10.6.0)
       testcontainers:
         specifier: ^10.28.0
         version: 10.28.0
@@ -2003,8 +2003,8 @@ packages:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
 
-  projen@0.99.74:
-    resolution: {integrity: sha512-K2QfAqJukE7Cxu1FqxQqFkU6ihA7NL48/BD+6M9pVurUqaTFE50KiuL4JDTobcp6ZfaHuOggdmrcuUDPaT1f5w==}
+  projen@0.99.76:
+    resolution: {integrity: sha512-WCExIFiuiqALWQd+1ZtP9yM/gV4C99kgqk33vtQmmWzETa/S3PjgGczMwLEF3NiN9fuSPjsMAHKaj9FkTuog5Q==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -2015,12 +2015,12 @@ packages:
       - chalk
       - comment-json
       - conventional-changelog-config-spec
+      - dax
       - fast-glob
       - fast-json-patch
       - ini
       - parse-conflict-json
       - semver
-      - shx
       - xmlbuilder2
       - yaml
       - yargs
@@ -4680,7 +4680,7 @@ snapshots:
 
   process@0.11.10: {}
 
-  projen@0.99.74(constructs@10.6.0):
+  projen@0.99.76(constructs@10.6.0):
     dependencies:
       constructs: 10.6.0
 
