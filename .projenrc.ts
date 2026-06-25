@@ -46,10 +46,6 @@ const project = new typescript.TypeScriptProject({
     },
   },
   docgen: true,
-  npmignore: [
-    '.mocharc.json',
-    'docs',
-  ],
   publishTasks: true,
   autoApproveOptions: {
     allowedUsernames: ['AminFazlMondo'],
@@ -67,6 +63,9 @@ const project = new typescript.TypeScriptProject({
     dependencyReview: true,
   },
 });
+
+project.addPackageIgnore('.mocharc.json');
+project.addPackageIgnore('docs');
 
 new JsonFile(project, '.mocharc.json', {
   obj: {
