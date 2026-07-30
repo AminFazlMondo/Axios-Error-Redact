@@ -47,7 +47,7 @@
     "eslint-import-resolver-typescript": "^3.10.1",
     "eslint-plugin-import": "^2.32.0",
     "mocha": "^10.8.2",
-    "projen": "^0.101.21",
+    "projen": "^0.101.22",
     "testcontainers": "^10.28.0",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.20",
@@ -55,7 +55,7 @@
     "wiremock-captain": "^3.6.1"
   },
   "dependencies": {
-    "axios": "^1.18.1"
+    "axios": "^1.19.0"
   },
   "pnpm": {},
   "keywords": [
