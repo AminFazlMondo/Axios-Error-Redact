@@ -52,8 +52,8 @@ importers:
         specifier: ^10.8.2
         version: 10.8.2
       projen:
-        specifier: ^0.101.33
-        version: 0.101.33(constructs@10.8.1)
+        specifier: ^0.101.37
+        version: 0.101.37(constructs@10.8.1)
       testcontainers:
         specifier: ^10.28.0
         version: 10.28.0
@@ -1157,6 +1157,7 @@ packages:
   eslint@9.39.5:
     resolution: {integrity: sha512-DgZS62aPLXKlnxILS/AYCoRvHaZeXceIzlXPkkGGzJWSow1aEk0lbTlxUSlyjC8jcaKxAdOnTDz+o1JFSBsyjw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -2031,8 +2032,8 @@ packages:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
 
-  projen@0.101.33:
-    resolution: {integrity: sha512-vNh8Hu7hj84XikN8781ABi7m/x487HbXBA4sBBm9fBeP38fF08pVEqMDz4sHsQpOFhsCYJc96bl2e+yG9MnmUg==}
+  projen@0.101.37:
+    resolution: {integrity: sha512-RhNBTl6Q45V2PHm8JuI3nfAyuF4tNO79hBQlEzizDpfbUho7+NBg9fzpytUfBocGu5fUgGTY3ewGKWHjUya9EQ==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -4737,7 +4738,7 @@ snapshots:
 
   process@0.11.10: {}
 
-  projen@0.101.33(constructs@10.8.1):
+  projen@0.101.37(constructs@10.8.1):
     dependencies:
       constructs: 10.8.1
 
