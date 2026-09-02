@@ -52,8 +52,8 @@ importers:
         specifier: ^10.8.2
         version: 10.8.2
       projen:
-        specifier: ^0.103.12
-        version: 0.103.12(constructs@10.8.1)
+        specifier: ^0.103.13
+        version: 0.103.13(constructs@10.8.1)
       testcontainers:
         specifier: ^10.28.0
         version: 10.28.0
@@ -2032,8 +2032,8 @@ packages:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
 
-  projen@0.103.12:
-    resolution: {integrity: sha512-fPbwEtJV/c275ImzY4XJ+9IcV/ak1GtTmu85ye8TRYizFYXnr7KFqFZ0aXlFbq9evBi9KBUFaELMP4AMHhHFXQ==}
+  projen@0.103.13:
+    resolution: {integrity: sha512-xcqj3GoLH8PivE3rD8DG0BqNm2hz1i3kAPotc4qcCoBmgmuyQyfZsSb3dulTu25dN/NSmx7g4wWDAXcxkTu3gw==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -4739,7 +4739,7 @@ snapshots:
 
   process@0.11.10: {}
 
-  projen@0.103.12(constructs@10.8.1):
+  projen@0.103.13(constructs@10.8.1):
     dependencies:
       constructs: 10.8.1
 
