@@ -55,7 +55,7 @@
     "wiremock-captain": "^3.6.1"
   },
   "dependencies": {
-    "axios": "^1.20.0"
+    "axios": "^1.21.0"
   },
   "pnpm": {},
   "keywords": [
